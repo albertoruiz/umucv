@@ -13,11 +13,14 @@ else:
 
 image = cv.imread(filename)
 print(image.shape)
+
 image_small = cv.resize(image, (800, 600))
+
 textColor = (0, 0, 255)  # red
 cv.putText(image_small, "Hello World!!!", (200, 200),
-            cv.FONT_HERSHEY_PLAIN, 3.0, textColor,
-            thickness=4)
+           cv.FONT_HERSHEY_PLAIN, 3.0, textColor,
+           thickness=4)
+
 cv.imshow('Hello World GUI', image_small)
 cv.waitKey()
 cv.destroyAllWindows()
