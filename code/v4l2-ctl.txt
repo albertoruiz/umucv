@@ -1,0 +1,21 @@
+CONTROLES DE LA WEBCAM
+----------------------
+
+v4l2-ctl
+
+v4l2-ctl -d /dev/video0 -c power_line_frequency=1
+v4l2-ctl -d /dev/video0 -c power_line_frequency=0
+
+v4l2-ctl -d /dev/video0 -c exposure_auto=1 -c exposure_absolute=100
+v4l2-ctl -d /dev/video0 -c exposure_auto=1 -c exposure_absolute=1000
+
+v4l2-ctl -d /dev/video0 -c exposure_auto=3
+
+v4l2-ctl -d /dev/video0 -c focus=255
+v4l2-ctl -d /dev/video0 -c focus=0
+
+guvcview
+
+En Windows el reproductor multimedia VLC permite controlar los parámetros
+de la cámara.
+
