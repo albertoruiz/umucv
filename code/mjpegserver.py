@@ -16,11 +16,9 @@ from socketserver import ThreadingMixIn
 from io import StringIO,BytesIO
 import time
 
-from umucv.stream import Camera
-from umucv.util   import sourceArgs
+from umucv.stream import Camera, sourceArgs
 import signal
 import sys
-
 import argparse
 
 parser = argparse.ArgumentParser()
@@ -28,9 +26,17 @@ sourceArgs(parser)
 parser.add_argument('--quality', help='jpeg quality', type=int, default=30)
 args = parser.parse_args()
 
-cam = Camera(args.size, args.dev)
-
 QUALITY = args.quality
+
+def encode(frame):
+    imgRGB=cv2.cvtColor(frame,cv2.COLOR_BGR2RGB)
+    jpg = Image.fromarray(imgRGB)
+    tmpFile = BytesIO()
+    jpg.save(tmpFile,'JPEG',quality=QUALITY)
+    #print('encoded', tmpFile.getbuffer().nbytes)
+    return tmpFile
+
+cam = Camera(args.size, args.dev, debug=False, transf=lambda s: map(encode,s))
 
 stop = False
 
@@ -49,19 +55,20 @@ class CamHandler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header('Content-type','multipart/x-mixed-replace; boundary=--jpgboundary')
             self.end_headers()
+            t = 0
             while not stop:
                 try:
-                    img = cam.frame
-                    imgRGB=cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
-                    jpg = Image.fromarray(imgRGB)
-                    tmpFile = BytesIO()
-                    jpg.save(tmpFile,'JPEG',quality=QUALITY)
+                    while cam.time == t:
+                        time.sleep(0.01)
+                        ##print('.')
+                    t = cam.time
+                    tmpFile = cam.frame
+                    #print('sent',tmpFile.getbuffer().nbytes)
                     self.wfile.write("--jpgboundary".encode())
                     self.send_header('Content-type','image/jpeg')
                     self.send_header('Content-length',str(tmpFile.getbuffer().nbytes))
                     self.end_headers()
                     self.wfile.write(tmpFile.getvalue())
-                    time.sleep(0.05)
                 except:
                     break
 
