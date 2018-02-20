@@ -4,7 +4,7 @@
 # https://fadeit.dk/blog/2015/04/30/python3-flask-pil-in-memory-image/
 
 #  $ ./server.py
-#  En navegador:  http://localhost:5000/image/320x240
+#  En navegador:  http://localhost:5000/320x240/image.png
 
 import re
 from io import BytesIO
@@ -25,7 +25,7 @@ print(getframe().shape)
 
 app = Flask(__name__)
 
-@app.route('/image/<dimensions>.png')
+@app.route('/<dimensions>/image.png')
 def generate_image(dimensions):
     #Extract digits from request variable e.g 200x300
     try:
