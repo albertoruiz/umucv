@@ -6,48 +6,40 @@
 #  $ ./server.py
 #  En navegador:  http://localhost:5000/320x240/image.png
 
-import re
 from io import BytesIO
-from flask import Flask, abort, send_file
-from PIL import Image, ImageDraw
-
+from flask import Flask, send_file
+from PIL import Image
 import cv2 as cv
 
-cap = cv.VideoCapture(0)
-assert cap.isOpened()
-
-def getframe():
-    ret, frame = cap.read()
-    return cv.cvtColor(frame, cv.COLOR_BGR2RGB)
-
-print(getframe().shape)
+if False:
+    cap = cv.VideoCapture(0)
+    def getframe():
+        ret, frame = cap.read()
+        return cv.cvtColor(frame, cv.COLOR_BGR2RGB)
+else:
+    # captura asíncrona en un hilo
+    from umucv.stream import Camera
+    cam = Camera((800,600),'0')
+    def getframe():
+        return cv.cvtColor(cam.frame, cv.COLOR_BGR2RGB)
 
 
 app = Flask(__name__)
 
-@app.route('/<dimensions>/image.png')
-def generate_image(dimensions):
-    #Extract digits from request variable e.g 200x300
-    try:
-        [width, height] = [int(s) for s in re.findall(r'\d+', dimensions)]
-    except:
-      abort(400)
+@app.route('/<ancho>x<alto>/image.png')
+def generate_image(ancho,alto):
     
-    g = cv.resize(getframe(),(width,height))
+    r = cv.resize(getframe(),(int(ancho),int(alto)))
 
     # para evitar usar un archivo intermedio en disco
-    image = Image.fromarray(g, mode = 'RGB')
-    
-    #draw = ImageDraw.Draw(image)
-    #draw.text((50, 50), str(g.shape) )
-
+    image = Image.fromarray(r, mode = 'RGB')
     byte_io = BytesIO()
     image.save(byte_io, 'PNG')
     byte_io.seek(0)
-
     return send_file(byte_io, mimetype='image/png')
         
-if __name__ == '__main__':
-    app.run(debug=False)       # debug=True parece incompatible con V4L2 !?
-    # app.run(host='0.0.0.0')  # Para que sea accesible públicamente
+app.run(debug=False)       # debug=True parece incompatible con V4L2 !?
+# app.run(host='0.0.0.0')  # Para que sea accesible públicamente
+
+cam.stop()
 
