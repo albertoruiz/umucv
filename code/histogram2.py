@@ -27,7 +27,7 @@ for _ in range(100):
     x = cv.cvtColor(frame,cv.COLOR_BGR2GRAY)
     im.set_data(x)
 
-    h,b = np.histogram(x, bins=256, range=(0,256))
+    h,b = np.histogram(x, np.arange(257))
 
     l1.set_data(b[1:],h);
 

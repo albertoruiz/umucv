@@ -13,7 +13,7 @@ while(True):
     
     x = cv.cvtColor(frame,cv.COLOR_BGR2GRAY)
     
-    h,b = np.histogram(x, bins=256, range=(0,256))
+    h,b = np.histogram(x, np.arange(257))
     
     # ajustamos la escala del histograma para que se vea bien en la imagen
     kk = np.array([2*b[1:], 480-h*(480/10000)]).T.astype(int)
