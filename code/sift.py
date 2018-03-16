@@ -13,7 +13,7 @@ matcher = cv.BFMatcher()  # buscador de coincidencias por fuerza bruta
 x0 = None
 
 for key, x in autoStream():
-    if key == 27: break
+
     if key == ord('x'):
         x0 = None
 
