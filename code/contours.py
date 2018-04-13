@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+# ./contours.py --dev=dir:../images/cards.png
+
 import cv2          as cv
 from umucv.stream import autoStream
 import numpy as np
@@ -67,7 +69,7 @@ for (key,frame) in autoStream():
     #cv.drawContours(frame, ok, -1, (0,0,255), 1)
     cv.drawContours(frame, found, -1, (0,255,0), cv.FILLED)
 
-    cv.imshow('input',frame)
+    cv.imshow('shapes',frame)
 
 cv.destroyAllWindows()
 
