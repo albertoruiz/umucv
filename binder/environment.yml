@@ -1,0 +1,21 @@
+name: autin
+channels:
+  - conda-forge
+  - menpo
+dependencies:
+  - python
+  - numpy
+  - matplotlib
+  - scipy
+  - sympy
+  - pandas
+  - mpmath
+  - uncertainties
+  - pint
+  - ipywidgets
+  - jupyter_contrib_nbextensions
+  - ffmpeg
+  - opencv3
+  - scikit-learn
+  - scikit-image
+ 
