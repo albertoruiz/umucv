@@ -1,0 +1,96 @@
+/*
+Placeholder for custom user CSS
+
+mainly to be overridden in profile/static/custom/custom.css
+
+This will always be an empty file in IPython
+*/
+
+/*
+div.text_cell_render p { font-family: "PT Serif",serif; font-size:18px; line-height:1.4}
+div.text_cell_render h1 { font-family: "Oxygen",sans-serif; font-size:32px; font-weight: bold}
+div.text_cell_render h2 { font-family: "Oxygen",sans-serif; font-size:24px; font-weight: bold; color: #600000 }
+div.text_cell_render h3 { font-family: "Oxygen",sans-serif; font-size:20px; font-weight: bold }
+div.text_cell_render ul { list-style-type:square }
+div.input_prompt { color: #a0a0a0 }
+div.prompt.output_prompt { color: #9090e0 }
+div.text_cell_render code {color: #000080; font-size: 16px}
+
+@font-face {
+  font-family: 'PT Serif';
+  font-style: normal;
+  font-weight: 400;
+  src: local('PT Serif'), local('PTSerif-Regular'), url(PT.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Crimson Text';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Crimson Text'), local('CrimsonText-Roman'), url(Crimson.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Oxygen';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Oxygen'), local('Oxygen-Regular'), url(Oxygen.ttf) format('truetype');
+}
+
+<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet'>
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+
+*/
+
+
+@font-face {
+  font-family: 'PT Serif';
+  font-style: normal;
+  font-weight: 400;
+  src: local('PT Serif'), local('PTSerif-Regular'), url(PT.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Roboto'), local('Roboto-Regular'), url(Roboto-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Oxygen';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Oxygen'), local('Oxygen-Regular'), url(Oxygen.ttf) format('truetype');
+}
+
+
+div.text_cell_render p  { font-family: "Roboto", sans-serif; font-size:18px; line-height:1.5; color: #282828; margin-right: 1em}
+div.text_cell_render li { font-family: "Roboto", sans-serif; font-size:18px; line-height:1.5; color: #282828; margin-right: 1em}
+
+div.text_cell_render h1 { font-family: "Oxygen",sans-serif; font-size:32px; font-weight: bold}
+div.text_cell_render h2 { font-family: "Oxygen",sans-serif; font-size:24px; font-weight: bold; color: #600000 }
+div.text_cell_render h3 { font-family: "Oxygen",sans-serif; font-size:20px; font-weight: bold }
+div.text_cell_render ul { list-style-type: square }
+
+div.input_prompt         { color: #a0a0a0 }  /* display: none } */
+div.prompt.output_prompt { color: #9090e0 }
+
+/* code en el texto */
+div.text_cell_render code {color: #c7254e; background-color:#f9f2f4; padding:2px 4px; font-size: 90%; border-radius: 4px}
+
+/* code independiente */
+div.text_cell_render pre > code {color: #000040; font-size: 16px; padding:2px 0px; background-color:#f0f0ff; border-radius: 0px}
+
+div.rendered_html pre {background-color:#f0f0ff}
+
+div#notebook-container.container {background-color: rgb(255,255,255)}
+
+.notebook_app.command_mode  { background-color: #FFF; }
+
+.navbar-default { background-color: #eee; }
+
+.container{width:auto}
+div#notebook{padding:0}
+.prompt{min-width:10ex}
+
+
