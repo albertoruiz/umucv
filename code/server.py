@@ -19,7 +19,7 @@ if False:
 else:
     # captura asíncrona en un hilo
     from umucv.stream import Camera
-    cam = Camera((800,600),'0')
+    cam = Camera()
     def getframe():
         return cv.cvtColor(cam.frame, cv.COLOR_BGR2RGB)
 

@@ -1,23 +1,41 @@
 #!/usr/bin/env python
 
 import cv2   as cv
-from umucv.stream import Camera
+from threading import Thread
+import time
+from umucv.util import putText
+from umucv.stream import autoStream
 
-#cam = Camera((640,480),'0',debug=True)
-cam = Camera()
 
-t = 0
+def work(img):
+    r = img
+    for _ in range(10):
+      r = cv.medianBlur(r,17)
+    return r
 
-while True:
-    key = cv.waitKey(1) & 0xFF
-    if key == 27: break
+
+frame = None
+goon = True
+
+def fun():
+    global frame, goon, key
+    for key,frame in autoStream():
+        cv.imshow('cam',frame)
+    goon = False
+
+t = Thread(target=fun,args=())
+t.start()
+
+while frame is None: pass
+
+while goon:    
     
-    if cam.time == t: continue
-    t = cam.time
-    
-    cv.imshow('webcam',cv.medianBlur(cam.frame,5))
-    #print('WORK {:.0f}'.format(cam.clock.time()))
+    t0 = time.time()
 
-cam.stop()
-cv.destroyAllWindows()
+    result = work(frame)
+    
+    t1 = time.time()
+    putText(result, '{:.0f}ms'.format(1000*(t1-t0)))
+
+    cv.imshow('work', result)
 
