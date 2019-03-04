@@ -4,7 +4,7 @@ import cv2   as cv
 from umucv.stream import Camera
 
 #cam = Camera((640,480),'0',debug=True)
-cam = Camera()
+cam = Camera(debug=True)
 
 t = 0
 
