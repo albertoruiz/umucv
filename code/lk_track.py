@@ -57,9 +57,13 @@ for key, frame in autoStream():
                 del tr[0]
             new_tracks.append(tr)
             cv.circle(vis, (x, y), 2, (0, 255, 0), -1)
+       
         tracks = new_tracks
         cv.polylines(vis, [np.int32(tr) for tr in tracks], False, (0, 255, 0))
         putText(vis, 'tracks: {}, {:.0f}ms'.format(len(tracks), 1000*(t1-t0)) )
+        
+    #for t in tracks:
+    #    print( t[0],t[-1] )
 
     if frame_idx % detect_interval == 0:
         mask = np.zeros_like(frame_gray)
