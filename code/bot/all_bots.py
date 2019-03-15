@@ -102,7 +102,7 @@ def get_ip(bot, update):
 def send_image(bot, cid, frame):
     # Convierte a RGB
     frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
-    # Carga imagen dados los bytes del frame
+    # Carga imagen dada el array que es el frame
     image = Image.fromarray(frame, mode='RGB')
     # Crea el stream de bytes
     byte_io = BytesIO()
