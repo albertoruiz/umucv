@@ -6,18 +6,18 @@
 # Con BotFather creas el bot y te dará el api token
 
 from telegram.ext import Updater
-import os
+import subprocess
+
+myid = "el id de tu usuario, te lo da IDBot"
 
 updater = Updater('el api token de tu bot')
 
 Bot = updater.bot
 
-myid = "el id de tu usuario, te lo da IDBot"
 
 def myip():
-    os.system("hostname -I > myip.txt")
-    ips = open('myip.txt', 'r').read().replace('\n',' ')
-    return ips
+    # Convierte a string utf-8 y elimina el espacio + salto de linea del final
+    return subprocess.check_output(["hostname", "-I"]).decode('utf-8')[:-2]
 
 Bot.sendMessage(chat_id=myid, text='Hello! My IP is {}'.format(myip()))
 
