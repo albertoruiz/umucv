@@ -163,10 +163,12 @@ def execute(bot, update, args):
             else:
                 out = "No existe el directorio"
         # Ejecuta el comando (argumentos) y convierte a string utf-8
-        else:
-            # Cambia el directorio actual
-            command = " ".join(["cd", dir_path, "&&"] + args)
-            out = subprocess.check_output(command, shell=True).decode('utf-8')[:-1]
+        command = " ".join(args)
+        try:
+            # Con shell=True se pasa una cadena de texto y permite ejecutar comandos con pipes
+            out = subprocess.check_output(command, shell=True, cwd=dir_path).decode('utf-8')[:-1]
+        except subprocess.CalledProcessError:
+            out = "Error ejecutando el comando (exit status diferente de 0)"
         # Envia el mensaje con la salida y elimina el salto de linea del final
         update.message.reply_text(prompt+out)
     else:
