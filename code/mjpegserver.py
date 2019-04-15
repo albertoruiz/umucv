@@ -15,6 +15,8 @@ from http.server import BaseHTTPRequestHandler,HTTPServer
 from socketserver import ThreadingMixIn
 from io import StringIO,BytesIO
 import time
+import subprocess
+
 
 from umucv.stream import Camera, sourceArgs
 import signal
@@ -64,7 +66,7 @@ class CamHandler(BaseHTTPRequestHandler):
                     t = cam.time
                     tmpFile = cam.frame
                     #print('sent',tmpFile.getbuffer().nbytes)
-                    self.wfile.write("--jpgboundary".encode())
+                    self.wfile.write("--jpgboundary\r\n".encode())
                     self.send_header('Content-type','image/jpeg')
                     self.send_header('Content-length',str(tmpFile.getbuffer().nbytes))
                     self.end_headers()
@@ -77,8 +79,9 @@ class ThreadedHTTPServer(ThreadingMixIn, HTTPServer):
 
 def main():
     try:
+        ip = subprocess.check_output(["hostname", "-I"]).decode('utf-8')[:-2]
         server = ThreadedHTTPServer(('', 8087), CamHandler)
-        print( "server started")
+        print(f"server started at {ip}:8087/cam.mjpg")
         server.serve_forever()
     except KeyboardInterrupt:
         server.socket.close()
