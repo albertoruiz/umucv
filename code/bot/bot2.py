@@ -12,7 +12,7 @@ from umucv.stream import Camera
 
 updater = Updater('api token del bot')
 
-cam = Camera(dev='0',sz=(640,480))
+cam = Camera()
 
 def shutdown():
     updater.stop()
