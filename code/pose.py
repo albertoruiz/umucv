@@ -46,8 +46,10 @@ def bestPose(K,view,model):
     poses = [ Pose(K, v.astype(float), model) for v in rots(view) ]
     return sorted(poses,key=lambda p: p.rms)[0]
 
+nf=0
 
 for key,frame in stream:
+    nf += 1
     g = cv.cvtColor(frame,cv.COLOR_BGR2GRAY)
     cs = extractContours(g, minarea=5, reduprec=2)
 
