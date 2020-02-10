@@ -1,6 +1,7 @@
 data/shape*.dat
 images/texturas/simple
 images/texturas/curetgrey
+solved
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
