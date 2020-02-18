@@ -1,0 +1,7 @@
+playa = http://213.4.39.225:81/mjpg/video.mjpg
+
+voley = http://robot.inf.um.es/material/va/voley.webm
+
+phone = rtsp://155.54.X.X:5540/ch0
+
+
