@@ -10,8 +10,8 @@ import cv2 as cv
 from umucv.util import ROI
 from umucv.stream import autoStream
 
-cv.namedWindow("webcam")
-roi = ROI("webcam")
+cv.namedWindow("input")
+roi = ROI("input")
 
 def hist(x, redu=16):
     return cv.calcHist([x],
@@ -24,6 +24,12 @@ H = None
 
 for key, frame in autoStream():
     
+    if H is not None:
+        b,g,r = np.floor_divide(frame, 16).transpose(2,0,1)
+        L = H[b,g,r]  # indexa el array H simultáneamente en todos los
+                      # pixels de la imagen.       
+        cv.imshow("likelihood", L/L.max())
+
     if roi.roi:
         [x1,y1,x2,y2] = roi.roi
         if key == ord('c'):
@@ -33,12 +39,7 @@ for key, frame in autoStream():
             print(H.shape)    
         cv.rectangle(frame, (x1,y1), (x2,y2), color=(0,255,255), thickness=2)
 
-    cv.imshow('webcam',frame)
+    cv.imshow('input',frame)
 
-    if H is not None:
-        r,g,b = np.floor_divide(frame, 16).transpose(2,0,1)
-        L = H[r,g,b]  # indexa el array H simultáneamente en todos los
-                      # pixels de la imagen.
-        
-        cv.imshow("likelihood", L/L.max())
+
 
