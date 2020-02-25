@@ -118,7 +118,7 @@ if __name__ == '__main__':
 
     # input and output windows
     cv.namedWindow('output')
-    cv.namedWindow('input')
+    cv.namedWindow('input', cv.WINDOW_GUI_NORMAL)
     cv.setMouseCallback('input',onmouse)
     cv.moveWindow('input',img.shape[1]+10,90)
 
