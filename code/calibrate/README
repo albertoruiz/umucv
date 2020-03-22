@@ -1,2 +1,16 @@
+# 1) captura con tu cámara varias imágenes del patrón "pattern.png" y guárdalas en una carpeta
+# (puedes ver las que he tomado con mi cámara en la carpeta mylogitech).
+#
+# Es importante que muchas de ellas tengan suficiente inclinación y se aprece el efecto de
+# perspectiva, las imágenes "frontales" no aportan mucha información.
+
+
+# 2) ejecuta el programa calibrate.py con la ruta entre comillas:
+
+
 ./calibrate.py  "mylogitech/*.png"
+
+
+El programa devolverá el error de ajuste (RMS), la matriz de calibración de cámara K, y los
+coeficientes de distorsión radial.
 
