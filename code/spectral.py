@@ -3,8 +3,7 @@
 import numpy             as np
 import numpy.fft         as fft
 import cv2               as cv
-
-from player import play
+from umucv.stream import autoStream
 
 def center(x):
     r,c = x.shape
@@ -23,4 +22,8 @@ def f(x):
     y = y/np.max(y)
     return center(y)
     
-play(f,0)
+for key, frame in autoStream():
+
+    cv.imshow('input', frame)
+    cv.imshow('FFT2D', f(frame) )
+
