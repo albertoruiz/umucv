@@ -1,0 +1,17 @@
+#! /bin/bash
+
+CAMDEV=/dev/video0
+if test -c $CAMDEV; then
+    WEBCAM="--device $CAMDEV:$CAMDEV"
+else
+    WEBCAM=''
+fi
+
+#DOCKER=umucv/python:umucv
+DOCKER=umucv/python:cuda
+
+REPO=$(realpath ..)
+
+docker run --gpus all -it --rm $WEBCAM -v $REPO:/home/euler/umucv \
+           --env QT_X11_NO_MITSHM=1 -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY \
+           $DOCKER
