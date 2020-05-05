@@ -10,14 +10,10 @@
 from umucv.stream   import autoStream
 import cv2 as cv
 import numpy as np
-from umucv.util import mkParam, putText
-from umucv.htrans import htrans, desp, rot3, scale
+from umucv.util import mkParam
 
-
-from numpy.fft import fft
 
 # Extraemos los contornos igual que en el capítulo de reconocimiento de formas
-
 def binarize(gray):
     _, r = cv.threshold(gray, 128, 255, cv.THRESH_BINARY+cv.THRESH_OTSU)
     return r
@@ -33,20 +29,23 @@ def extractContours(image, minarea=10):
     return contours
 
 
+from numpy.fft import fft
+
 # una elipse perfecta solo tiene frecuencias 0, 1, -1.
-# Cuanto mayores sean los demás coeficientes menos se parecerá a una elipse
+# Cuanto mayores sean los demás coeficientes de Fourier, 
+# menos se parecerá el contorno a una elipse
 def error_elipse(c):
     x,y = c.T
     z = x+y*1j
     f  = fft(z)
     fa = abs(f)
     
-    c = f[0]
     s = fa[1] + fa[-1]
     
     fa[0] = fa[1] = fa[-1] = 0
     p = np.sum(fa)
 
+    # devolvemos la proporción de frecuencias "malas"
     return p / s
 
 
