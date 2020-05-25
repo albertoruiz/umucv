@@ -12,7 +12,7 @@ import cv2   as cv
 
 import numpy as np
 from umucv.stream import autoStream
-from umucv.htrans   import desp, scale,Kfov, Pose, sepcam, jr, jc, col, row, rotation
+from umucv.htrans   import desp, scale, Pose, sepcam, jr, jc, col, row, rotation
 from umucv.contours import extractContours, redu
 from umucv.util import cube
 
