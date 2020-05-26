@@ -74,6 +74,13 @@ def img2tex(img):
     texture,_ = pg.makeARGB(x, useRGBA=True)
     return texture
 
+# con canal alpha
+def img2texA(img):
+    x = cv.cvtColor(img, cv.COLOR_BGRA2RGBA)
+    texture,_ = pg.makeARGB(x, useRGBA=True)
+    return texture
+
+
 # construye la matriz 4x4 de transformación de la escena a partir de una matriz de cámara
 def cameraTransf2(M):
     K,R,C = sepcam(M)
@@ -86,16 +93,24 @@ def cameraTransf2(M):
 def cameraTransf(p):
     return jr(jc(p.R, col(p.t)), row(0,0,0,1))
 
+# distancia de la cámara al origen (para evitar el valor cero)
+DC = 1
+
 # Esta función crea un objeto imagen y devuelve una función que actualiza su posicion
 # con la transformación de la escena deducida de la matriz de cámara.
 # Recibe también una transformación T que lleva la posición inicial de la imagen,
 # en el plano z=0, y con anchura = 1, a la posición deseada.
 def mkTexture(w,img,T):
     W = img.shape[1]
-    obj = gl.GLImageItem(data=img2tex(img.transpose(1,0,2)))
+    if img.shape[2] == 3:
+        obj = gl.GLImageItem(data=img2tex(img.transpose(1,0,2)))
+    else:
+        obj = gl.GLImageItem(data=img2texA(img.transpose(1,0,2)))
     w.addItem(obj)
+    S = scale((1/W,1/W,1))
+    D = desp((0,0,-DC))
     def update(H):
-        transform( H @ T  @ scale((1/W,1/W,1)) , obj)
+        transform( D @ H @ T @ S , obj )
     return update
 
 # Esta función hace lo mismo con un objeto línea. No hace falta la transformación,
@@ -104,8 +119,9 @@ def mkLine(w,pts,color,width):
     obj = gl.GLLinePlotItem(pos=pts,color=color,antialias=True,width=width)
     obj.setGLOptions('opaque')
     w.addItem(obj)
+    D = desp((0,0,-DC))
     def update(H):
-        transform(H, obj)
+        transform( D @ H, obj )
     return update
 
 # Rotaciones homogéneas (4x4) en los 3 ejes, para construir fácilmente las
@@ -134,26 +150,28 @@ def setCameraPosition(w, pos=None, distance=None, elevation=None, azimuth=None, 
         w.opts['fov'] = fov
     w.update()      
 
+
 # La clave para que los objetos virtuales se vean correctamente sobre la escena real
 # es situar correctamente la "cámara" opengl y mostrar la imagen de cámara a la
 # distancia justa.
-def prepare_RA(w, size, fov):
+# dist es la distancia a la que se proyecta la imagen de fondo. Si se queda corta
+# respecto a las medidas del marcador los objetos pueden quedar ocultos por detrás
+def prepare_RA(w, size, fov, dist=20):
     WIDTH,HEIGHT = size 
     # Ponemos el punto de vista de la visualización gráfica en el origen del sistema 
     # de referencia, con elevación y azimuth de modo que el eje x apunte hacia la 
     # derecha, el eje y hacia abajo y el eje z mirando hacia delante.
     # Es la posición "inicial" de una cámara en el origen.
-    # (ponemos un valor pequeño en distance, no se puede poner cero exacto. FIXME)
-    setCameraPosition(w, distance=0.02, elevation=-90, azimuth=-90, fov=fov)
+    # (ponemos distancia > 0 que luego se compensa porque cero da problemas)
+    setCameraPosition(w, distance=DC, elevation=-90, azimuth=-90, fov=fov)
     
     # Preparamos el objeto textura que contendrá la imagen de cámara en vivo. La vamos
     # a situar centrada delante del punto de vista del visor gráfico, a la distancia
     # justa para que ocupe toda la ventana, teniendo en cuenta el FOV. Es el fondo
     # de la escena, delante pondremos los objetos virtuales.
-    s = 1/50   #FIXME
     W2 = WIDTH/2
-    d = W2*s/np.tan(np.radians(fov)/2)
-    #print(d)
+    d = dist
+    s = (d + DC)/W2 * np.tan(np.radians(fov)/2)
     camera_image = gl.GLImageItem(data=np.zeros([100,100,4]))
     transform( scale((s,s,1)) @ desp((-WIDTH//2,-HEIGHT//2, d)) , camera_image)
     w.addItem(camera_image)
@@ -169,6 +187,12 @@ def prepare_RA(w, size, fov):
 # leemos una imagen para usar como textura de paredes virtuales
 bricks = cv.imread('bricks.jpg')
 
+
+# añadimos canal alpha a la imagen y hacemos transparente una parte
+puerta = cv.imread('bricks.jpg')
+puerta = cv.cvtColor(puerta, cv.COLOR_RGB2RGBA)
+puerta[:,:,3] = 255
+puerta[0:200,100:200,3] = 0
 
 ## Create a GL View widget to display data
 app = QtGui.QApplication([])
@@ -217,14 +241,19 @@ update_view = prepare_RA(w,size,fov)
 # para cambiar si queremos el alto y ancho de las paredes (deformando)
 S = scale((1,1,1))  # (lo dejamos igual)
 
+# Si hay objetos transparentes primero definimos los sólidos
+# (aún así, si hay varios transparentes la escena puede quedar mal, 
+# deben renderizarse de atrás hacia delante)
 
-objects = [ mkTexture(w, bricks, rx(90) @ S )
-          , mkTexture(w, bricks, desp((0,1,0)) @ rx(90) @ S)
+objects = [ mkLine(w, cube/2+(1.25,0.25,0), color=(128,255,255,1), width=2)
+     #    , mkLine(w, marker + (0,0,0.05), color=(255,255,0,1), width=2)    
+    #     , mkTexture(w, np.zeros((500,500,3),np.uint8) + np.array([64,92,64]).astype(np.uint8), desp((0,0,.3)) )
+
+          , mkTexture(w, bricks, rx(90) @ S )
           , mkTexture(w, bricks, rz(90) @ rx(90) @ S )
           , mkTexture(w, bricks, desp((1,0,0)) @ rz(90) @ rx(90) @ S)
-     #    , mkLine(w, cube/2+(0.25,0.25,0), color=(128,255,255,1), width=2)
-     #    , mkLine(w, marker + (0,0,0.05), color=(255,255,0,1), width=2)
-          , mkTexture(w, np.zeros((500,500,3),np.uint8) + np.array([64,92,64]).astype(np.uint8), desp((0,0,0)) )
+    
+          , mkTexture(w, puerta, desp((0,1,0)) @ rx(90) @ S)
           ]
 
 # Las transformaciones de cada pared sirven para ponerlas "de pie",
