@@ -2,25 +2,18 @@
 
 import cv2   as cv
 import numpy as np
+from umucv.stream import autoStream
 
-def bgr2gray(x):
-    return cv.cvtColor(x,cv.COLOR_BGR2GRAY)
-
-h = 128
-
-def update(v):
-    global h
-    h = v
+def nada(v): pass
 
 cv.namedWindow("binary")
-cv.createTrackbar("umbral", "binary", h, 255, update)
+cv.createTrackbar("umbral", "binary", 128, 255, nada)
 
-cap = cv.VideoCapture(0)
-assert cap.isOpened()
-
-while(cv.waitKey(1) & 0xFF != 27):
-    ret, frame = cap.read()
-    cv.imshow('binary', (bgr2gray(frame) > h).astype(np.float) )
+for key, frame in autoStream():
+    h = cv.getTrackbarPos('umbral','binary')
+    gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
+    binary = (gray > h).astype(np.float)
+    cv.imshow('binary', binary )
 
 cv.destroyAllWindows()
 
