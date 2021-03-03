@@ -3,7 +3,7 @@
 import numpy as np
 import cv2 as cv
 
-from umucv.util import ROI, putText, Help
+from umucv.util import ROI, putText
 from umucv.stream import autoStream
 
 
