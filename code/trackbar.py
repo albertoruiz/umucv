@@ -11,10 +11,15 @@ cv.namedWindow("binary")
 cv.createTrackbar("umbral", "binary", 128, 255, nada)
 
 for key, frame in autoStream():
-    h = cv.getTrackbarPos('umbral','binary')
+    #print(frame)
     gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
-    #binary = (gray > h).astype(np.float)
-    binary = (gray > h).astype(np.uint8)*255
+    #print(gray)
+    h = cv.getTrackbarPos('umbral','binary')
+    logica = gray > h
+    #print(logica)
+    #binary = logica.astype(np.uint8)*128
+    binary = logica.astype(np.float)
+    #print(binary)
     cv.imshow('binary', binary )
 
 cv.destroyAllWindows()

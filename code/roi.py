@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 # ejemplo de selección de ROI
 
 import numpy as np

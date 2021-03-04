@@ -7,7 +7,7 @@ from umucv.stream import autoStream
 from umucv.util import Help
 
 help = Help(
-f"""
+"""
 HELP WINDOW DEMO
 
 c: color
@@ -34,7 +34,7 @@ for key,frame in autoStream():
     if key == ord('i'):
         invert = not invert
     
-    if color:
+    if not color:
         result = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
     else:
         result = frame
