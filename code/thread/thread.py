@@ -1,9 +1,17 @@
 #!/usr/bin/env python
 
+# Captura asíncrona
+
+# Utilizamos un hilo para realizar los cálculos
+
+# (Parece que dentro de un hilo solo se puede hacer computación pura,
+#  cv.imshow y otra operaciones dan problemas)
+
 import cv2   as cv
 from threading import Thread
+from umucv.stream import autoStream
 
-def work(img, n):
+def heavywork(img, n):
     r = img
     for _ in range(n):
         r = cv.medianBlur(r, 17)
@@ -11,24 +19,32 @@ def work(img, n):
 
 
 frame = None
+result = None
 
 goon = True
 
-def capture():
-    global frame
-    cap = cv.VideoCapture(0)
+def in_thread():
+    global result
     while goon:
-        _,frame = cap.read()
-        print('cap')
+        if frame is not None:
+            print('work starts')
+            result = heavywork(frame,20)
+            print('work ends')
+            # cv.imshow('otherwork',result)  # Aquí NOOO
 
-t = Thread(target=capture, args=())
+t = Thread(target=in_thread, args=())
 t.start()
 
-while frame is None: pass
 
-while(cv.waitKey(1) & 0xFF != 27):
-    cv.imshow('webcam',work(frame,20))
-    print('work')
+
+# capture
+for key, frame in autoStream():
+    cv.imshow('input',frame)
+    print('capture')
+    if result is not None:
+        cv.imshow('work',result)
+        print('display')
+        result = None
 
 goon=False
 

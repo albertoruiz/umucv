@@ -1,9 +1,14 @@
 #!/usr/bin/env python
 
+# otra forma de captura asíncrona con una utilidad de umucv
+# Aquí el objeto Camera mantiene actualizado su campo .frame
+# (Lleva también una marca de tiempo para saber si ya lo hemos procesado)
+
+
 import cv2   as cv
 from umucv.stream import Camera
 
-def work(img, n):
+def heavywork(img, n):
     r = img
     for _ in range(n):
         r = cv.medianBlur(r, 17)

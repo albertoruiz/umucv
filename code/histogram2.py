@@ -3,11 +3,18 @@
 import cv2 as cv
 import numpy as np
 import matplotlib.pyplot as plt
+from umucv.stream import autoStream
 
-cap = cv.VideoCapture(0)
+fin = False
+def on_press(event):
+    global fin
+    if event.key == 'escape':
+        fin = True
 
 plt.ion()
 fig = plt.figure(figsize=(10,3))
+fig.canvas.mpl_connect('key_press_event', on_press)
+
 fig.suptitle('histogram')
 
 ax = fig.add_axes([-0.25,0,1,1])
@@ -21,9 +28,8 @@ ax2.set_ylim(0,10000)
 
 plt.show()
 
-for _ in range(100):
-    ret, frame = cap.read()
-    
+for key, frame in autoStream():
+
     x = cv.cvtColor(frame,cv.COLOR_BGR2GRAY)
     im.set_data(x)
 
@@ -31,5 +37,8 @@ for _ in range(100):
 
     l1.set_data(b[1:],h);
 
-    plt.pause(0.001)
+    #plt.pause(0.001)
+    fig.canvas.draw_idle()
+    fig.canvas.start_event_loop(0.001)
+    if fin: break
 

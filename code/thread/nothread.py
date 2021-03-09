@@ -1,10 +1,13 @@
 #!/usr/bin/env python
 
+# Una computación muy costosa hace que la operación de captura
+# deje de ir en tiempo real y la aplicación va a saltos
+
 import cv2   as cv
 from umucv.stream import autoStream
 
 
-def work(img, n):
+def heavywork(img, n):
     r = img
     for _ in range(n):
         r = cv.medianBlur(r, 17)
@@ -13,6 +16,6 @@ def work(img, n):
 
 for key,frame in autoStream():
     cv.imshow('cam',frame)
-    result = work(frame, 20)
+    result = heavywork(frame, 20)
     cv.imshow('work', result)
 
