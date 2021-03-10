@@ -26,7 +26,7 @@ while True:
     if cam.time == t: continue
     t = cam.time
     
-    cv.imshow('webcam', work(cam.frame, 20) )
+    cv.imshow('webcam', heavywork(cam.frame, 20) )
     print('WORK {:.0f}'.format(cam.clock.time()))
 
 cam.stop()
