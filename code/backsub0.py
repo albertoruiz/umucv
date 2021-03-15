@@ -7,7 +7,6 @@ from umucv.stream import autoStream
 
 bgsub = cv.createBackgroundSubtractorMOG2(500, 16, False)
 
-kernel = np.ones((3,3),np.uint8)
 
 for key,frame in autoStream():
     fgmask = bgsub.apply(frame)
