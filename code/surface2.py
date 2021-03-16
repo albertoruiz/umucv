@@ -60,6 +60,7 @@ def update():
     newimage = getframe()
     cv.imshow("input",newimage)
     smooth = cv.GaussianBlur(newimage,(-1,-1), sigma)
+    cv.imshow("smooth",smooth)
     p.setData(z=smooth)
     
 timer = QtCore.QTimer()

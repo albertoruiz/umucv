@@ -20,7 +20,7 @@ cam = Camera()
 
 def feat(region):
     r = cv.cvtColor(region, cv.COLOR_BGR2GRAY)
-    return hog( r, visualise = SHOW, transform_sqrt=True, feature_vector=False,
+    return hog( r, visualize = SHOW, transform_sqrt=True, feature_vector=False,
                    orientations = 8,
                    pixels_per_cell = (PPC,PPC),
                    cells_per_block = (CPB,CPB),
@@ -37,11 +37,15 @@ while True:
     
     if key == ord('x'):
         MODEL = None
+
+    if key == ord('g'):
+        SHOW = not SHOW
  
     x = cam.frame.copy()
 
     if SHOW:
         h, sh = feat(x)
+        putText(sh,str(h.shape))
         cv.imshow('hog', sh)
     else:
         h = feat(x)
@@ -75,6 +79,7 @@ while True:
         if key == ord('c'):
             if SHOW:
                 MODEL, sh = feat(reg)
+                putText(sh,str(MODEL.shape))
                 cv.imshow('model', sh)
             else:
                 MODEL = feat(reg)

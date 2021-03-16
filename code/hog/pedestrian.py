@@ -12,6 +12,9 @@ MULTISCALE = True
 
 for key, image in autoStream():
     
+    if key==ord('m'):
+        MULTISCALE = not MULTISCALE
+    
     t0 = time.time()
     if MULTISCALE:
         (rects, weights) = hog.detectMultiScale(image, winStride=(4, 4), padding=(8, 8), scale=1.1)
