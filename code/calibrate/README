@@ -1,7 +1,7 @@
 # 1) captura con tu cámara varias imágenes del patrón "pattern.png" y guárdalas en una carpeta
 # (puedes ver las que he tomado con mi cámara en la carpeta mylogitech).
 #
-# Es importante que muchas de ellas tengan suficiente inclinación y se aprece el efecto de
+# Es importante que muchas de ellas tengan suficiente inclinación y se aprecie el efecto de
 # perspectiva, las imágenes "frontales" no aportan mucha información.
 
 
@@ -13,4 +13,13 @@
 
 El programa devolverá el error de ajuste (RMS), la matriz de calibración de cámara K, y los
 coeficientes de distorsión radial.
+
+
+En imágenes de alta resolución el detector de esquinas puede tener dificultad para
+encontrar el patrón de calibración. En este caso una solución es reescalar las imágenes
+(con convert de imagemagick por ejemplo)
+
+convert -resize 20% *.jpg r.png
+
+Y después reajustar los parámetros encontrados. En este caso, f -> f*5
 

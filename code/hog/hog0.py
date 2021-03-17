@@ -4,9 +4,21 @@ import numpy             as np
 import cv2               as cv
 from umucv.stream import Camera
 
-from umucv.util   import ROI, putText
+from umucv.util   import ROI, putText, Help
 
 from skimage.feature import hog
+
+
+help = Help(
+"""
+HOG object recognition
+
+c: capture roi
+g: show HOG
+x: clear model
+
+h: show/hide help
+""")
 
 
 cv.namedWindow('cam')
@@ -14,6 +26,7 @@ roi = ROI('cam')
 
 PPC = 16
 CPB = 2
+
 SHOW = False
 
 cam = Camera()
@@ -33,6 +46,8 @@ MODEL = None
 
 while True:
     key = cv.waitKey(1) & 0xFF
+    help.show_if(key, ord('h'))
+    
     if key == 27: break
     
     if key == ord('x'):
