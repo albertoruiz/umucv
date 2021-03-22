@@ -75,17 +75,19 @@ while True:
                 vr = h[j:j+h2 , k: k+w2].flatten()
                 v  = MODEL.flatten()
                 detected.append( (dist(vr,v), j, k) ) 
+                
 
-        d,j,k = min(detected)
+        dmin, jmin, kmin = min(detected)
 
-        x1 = k*PPC
-        y1 = j*PPC
+
+        x1 = kmin*PPC
+        y1 = jmin*PPC
         x2 = x1+(w2+CPB-1)*PPC
         y2 = y1+(h2+CPB-1)*PPC
         
-        if d < 0.04:
+        if dmin < 0.04:
             cv.rectangle(x, (x1,y1), (x2,y2), color=(255,255,0), thickness=2)
-        putText(x,'{:.3f}'.format(d),(6,18),(0,128,255))
+        putText(x,'{:.3f}'.format(dmin),(6,18),(0,128,255))
 
     if roi.roi:
         [x1,y1,x2,y2] = roi.roi

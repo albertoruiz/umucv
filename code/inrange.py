@@ -82,14 +82,16 @@ for key, frame in autoStream():
     rois = frame.copy()
     n, cc, st, cen = cv.connectedComponentsWithStats(mask)
 
+    # La componente 0 es el fondo
+
     # En principio, podemos mostrar la imagen de etiquetas, pero se verán niveles de gris
     # muy parecidos. En matplotlib queda bien con las paletas que tiene, con opencv multiplicamos
     # para separar un poco los tonos de gris:
     cv.imshow('CC',5*cc.astype(np.uint8))
 
     # Es mejor dibujar las bounding box, opcionalmente filtrando por área:
-    for x in range(n):
-        if 5**2 < st[x][cv.CC_STAT_AREA] < 50**2:
+    for x in range(1, n):
+        if 5**2 < st[x][cv.CC_STAT_AREA]:
             x1 = st[x][cv.CC_STAT_LEFT]
             y1 = st[x][cv.CC_STAT_TOP]
             x2 = st[x][cv.CC_STAT_WIDTH] + x1

@@ -35,7 +35,7 @@ def in_thread():
 t = Thread(target=in_thread, args=())
 t.start()
 
-
+#cv.setNumThreads(8)
 
 # capture
 for key, frame in autoStream():
