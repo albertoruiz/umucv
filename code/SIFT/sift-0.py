@@ -12,6 +12,7 @@ from umucv.util import putText
 # https://docs.opencv.org/3.4/d5/d3c/classcv_1_1xfeatures2d_1_1SIFT.html
 
 sift = cv.xfeatures2d.SIFT_create(nfeatures=0, contrastThreshold=0.1, edgeThreshold=8)
+# sift = cv.AKAZE_create()
 
 for key, frame in autoStream():
 
