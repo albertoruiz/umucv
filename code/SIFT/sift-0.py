@@ -18,7 +18,7 @@ for key, frame in autoStream():
 
     t0 = time.time()
     # invocamos al detector (por ahora no usamos los descriptores)
-    keypoints , descriptors = sift.detectAndCompute(frame, mask=None)
+    keypoints , _ = sift.detectAndCompute(frame, mask=None)
     t1 = time.time()
 
     putText(frame, '{} keypoints  {:.0f} ms'.format(len(keypoints), 1000*(t1-t0)))

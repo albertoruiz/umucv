@@ -70,7 +70,7 @@ for n, (key, frame) in enumerate(autoStream()):
         mask[:] = 255
         for x,y in [np.int32(t[-1]) for t in tracks]:
             cv.circle(mask, (x,y), 5, 0, -1)
-        
+        #cv.imshow("mask",mask)
         corners = cv.goodFeaturesToTrack(gray, mask=mask, **corners_params)
         if corners is not None:
             for [(x, y)] in np.float32(corners):
