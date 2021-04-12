@@ -5,7 +5,7 @@
 #         los que son muy parecidos
           
 
-# ./trebol4.py --dev=dir:../../images/cards.png
+# ./trebol5.py --dev=dir:../../images/cards.png
 
 import cv2          as cv
 from umucv.stream import autoStream
@@ -70,6 +70,7 @@ cv.imshow('model', modelaux)
 
 invmodel = invar(model)
 
+MAXDIST = 0.15
 
 for (key,frame) in autoStream():
 
@@ -80,8 +81,8 @@ for (key,frame) in autoStream():
     
     ok = [c for c in contours if razonable(c) and not orientation(c)]
 
-    # seleccionamos los contornos con un descriptr muy parecido al del modelo     
-    found = [c for c in ok if np.linalg.norm(invar(c)-invmodel) < 0.15 ]
+    # seleccionamos los contornos con un descriptor muy parecido al del modelo     
+    found = [c for c in ok if np.linalg.norm(invar(c)-invmodel) < MAXDIST ]
 
 
     if shcont:
@@ -96,9 +97,12 @@ for (key,frame) in autoStream():
         # en este modo de visualización mostramos solo los detectados
         cv.drawContours(result, found, -1, (0,255,0), cv.FILLED)
     
-    # y en ambos modos mostramos la similitud y el área
+    # y en ambos modos mostramos la similitud (y el área)
     for c in found:
-        info = '{:.2f} {}'.format(np.linalg.norm(invar(c)-invmodel),cv.contourArea(c))
+        s = np.linalg.norm(invar(c)-invmodel)
+        a = cv.contourArea(c)
+        #info = f'{s:.2f} {a}'
+        info = f'{s:.2f}'
         putText(result ,info,c.mean(axis=0).astype(int))
 
     cv.imshow('shape recognition',result)

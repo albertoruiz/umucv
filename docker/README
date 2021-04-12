@@ -33,6 +33,14 @@ administración. Los cambios en la imagen se pierden al salir, pero tenemos
 acceso completo a las carpetas montadas: hay que tener cuidado para no borrar
 nada importante.
 
+Para guardar cambios en un contenedor se utiliza el comando docker commit.
+Esto permite, por ejemplo, instalar paquetes adicionales o una versión
+actualizada de umucv sin tener que repetirlo cada vez que arrancamos el contenedor.
+Con docker ps en otro terminal consultamos el nombre del contenedor que se está
+ejecutando, y lo salvamos con docker commit <contenedor> <nombre/imagen:version>.
+(Para arrancarlo debemos cambiar el nombre de la imagen en el script run).
+
+
 Para acceder a la gpu puede ser necesario instalar
 
 https://github.com/NVIDIA/nvidia-docker
