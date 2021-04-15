@@ -38,7 +38,7 @@ def encode(frame):
     #print('encoded', tmpFile.getbuffer().nbytes)
     return tmpFile
 
-cam = Camera(args.size, args.dev, debug=False, transf=lambda s: map(encode,s))
+cam = Camera(args.size, args.dev, debug=False)
 
 stop = False
 
@@ -64,7 +64,8 @@ class CamHandler(BaseHTTPRequestHandler):
                         time.sleep(0.01)
                         ##print('.')
                     t = cam.time
-                    tmpFile = cam.frame
+                    result = 255 - cam.frame
+                    tmpFile = encode(result)
                     #print('sent',tmpFile.getbuffer().nbytes)
                     self.wfile.write("--jpgboundary\r\n".encode())
                     self.send_header('Content-type','image/jpeg')
@@ -79,9 +80,10 @@ class ThreadedHTTPServer(ThreadingMixIn, HTTPServer):
 
 def main():
     try:
-        ip = subprocess.check_output(["hostname", "-I"]).decode('utf-8')[:-2]
+        
         server = ThreadedHTTPServer(('', 8087), CamHandler)
-        print(f"server started at {ip}:8087/cam.mjpg")
+        #ip = subprocess.check_output(["hostname", "-I"]).decode('utf-8')[:-2]
+        print(f"server started at http://localhost:8087/cam.mjpg")
         server.serve_forever()
     except KeyboardInterrupt:
         server.socket.close()
