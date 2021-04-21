@@ -10,7 +10,11 @@ from PIL import Image
 import cv2 as cv
 from umucv.stream import Camera
 
-updater = Updater('api token del bot')
+from mybotid import myid, mybot
+
+updater = Updater(mybot)
+
+Bot = updater.bot
 
 cam = Camera()
 
@@ -19,25 +23,28 @@ def shutdown():
     updater.is_idle = False
     cam.stop()
 
-def stop(bot, update):
+def stop(update,_):
+    cid = update.message.chat_id
+    if cid != myid:
+        return
     update.message.reply_text('Bye!')
     threading.Thread(target=shutdown).start()
 
-def hello(bot, update):
+def hello(update, _):
     update.message.reply_text('Hello {}'.format(update.message.from_user.first_name))
 
-def sendImage(bot, cid, frame):
+def sendImage(userid, frame):
     frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
     image = Image.fromarray(frame, mode = 'RGB')
     byte_io = BytesIO()
     image.save(byte_io, 'PNG')
     byte_io.seek(0)
-    bot.sendPhoto(chat_id=cid, photo=byte_io)
+    Bot.sendPhoto(chat_id=userid, photo=byte_io)
 
-def image(bot, update):
-    cid = update.message.chat_id
+def image(update,_):
+    cid = update.message.chat.id
     img = cam.frame
-    sendImage(bot, cid, img)
+    sendImage(cid, img)
 
 
 updater.dispatcher.add_handler(CommandHandler('stop',  stop))

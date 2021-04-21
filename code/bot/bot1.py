@@ -2,6 +2,9 @@
 
 # envía una imagen cuando ocurre algo
 
+# (en este caso cuando se pulsa la tecla b,
+# pero la idea es enviarla cuando se detecta actividad, etc.)
+
 from telegram.ext import Updater
 
 from io import BytesIO
@@ -9,24 +12,21 @@ from PIL import Image
 import cv2 as cv
 from umucv.stream import autoStream
 
-updater = Updater('api token del bot')
+from mybotid import myid, mybot
 
-Bot = updater.bot
+Bot = Updater(mybot).bot
 
-myid = "id del destinatario"
-
-
-def sendImage(bot, cid, frame):
+def sendImage(userid, frame):
     frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
     image = Image.fromarray(frame, mode = 'RGB')
     byte_io = BytesIO()
     image.save(byte_io, 'PNG')
     byte_io.seek(0)
-    bot.sendPhoto(chat_id=cid, photo=byte_io)
+    Bot.sendPhoto(chat_id=userid, photo=byte_io)
 
 
 for key, frame in autoStream():
     cv.imshow('image',frame)
     if key == ord('b'):
-        sendImage(Bot, myid, frame)
+        sendImage(myid, frame)
 
