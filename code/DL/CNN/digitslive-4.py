@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# 4) Construimos una red convolucional
+# 4) Usamos la red convolucional que hemos entrenado en el notebook
 
 import cv2 as cv
 import numpy as np
@@ -9,42 +9,12 @@ from umucv.util   import putText
 import time
 
 ##############################################################################
-# pip install tensorflow keras
-import keras
 
-from keras.models import Sequential
-from keras.layers import Dense, Conv2D, MaxPool2D, Dropout, Softmax, Flatten
+from tensorflow.keras.models import load_model
 
-# empezamos a definir la red neuronal, exactamente igual que en el notebook
-model = Sequential()
-# la primera capa es convolucional con 32 filtros 5x5
-model.add(Conv2D(input_shape=(28,28,1), filters=32, kernel_size=(5,5), strides=1,
-                 padding='same', use_bias=True, activation='relu'))
-# la segunda reduce la resolución a la mitad
-model.add(MaxPool2D(pool_size=(2,2)))
-# la tercera es convolucional, con 64 filtros 5x5
-model.add(Conv2D(filters=64, kernel_size=(5,5), strides=1,
-                 padding='same', use_bias=True, activation='relu'))
-# volvemos a reducir la resolución a la mitad
-model.add(MaxPool2D(pool_size=(2,2)))
-# ponemos los resultados de todos los filtros como un vector
-model.add(Flatten())
-# añadimos una capa densa (completamente conectada) que produce 1024 features
-model.add(Dense(1024,activation='relu'))
-# una etapa de regularización
-model.add(Dropout(rate=0.5))
-# y finalmente la capa de salida con un elemento para cada clase
-model.add(Dense(10, activation='softmax'))
-
-# preparamos la red (aunque no la vamos a entrenar ahora)
-model.compile(loss='categorical_crossentropy',
-              optimizer='sgd',
-              metrics=['accuracy'])
-
-# leemos los pesos preentrenados
-# están aquí:
+# el modelo preentrenado está aquí:
 # wget https://robot.inf.um.es/material/va/digits.keras
-model.load_weights('digits.keras')
+model = load_model('../../../data/digits.keras')
 
 def classifyN(xs):
     # ponemos la estructura de array que espera la red: una lista de imágenes de un canal
@@ -55,16 +25,18 @@ def classifyN(xs):
     pm = np.max(p,axis=1)
     return r,pm
 
-# (mas abajo elegiremos esta función de clasifación para comparar con la anterior)
+# (mas abajo elegiremos esta función de clasificación para comparar con la anterior)
 
 ########################################################################################
-from sklearn import decomposition, discriminant_analysis
 
-# pon el path correcto, el archivo está en repo/umucv/data
-mnist = np.load("../../../data/mnist.npz")
-xl,yl,xt,yt = [mnist[d] for d in ['xl', 'yl', 'xt', 'yt']]
-cl = np.argmax(yl,axis=1)
-ct = np.argmax(yt,axis=1)
+
+from tensorflow.keras.datasets import mnist
+
+(kxl,cl), (kxt,ct) = mnist.load_data()
+xl = kxl.reshape(len(kxl),-1)/255
+xt = kxt.reshape(len(kxt),-1)/255
+
+from sklearn import decomposition, discriminant_analysis
 
 transformer = decomposition.PCA(n_components=40).fit(xl)
 
@@ -139,7 +111,8 @@ def adaptsize(x):
         z1 = np.zeros([h2,s])
         z2 = np.zeros([s-h-h2,s])
         y  = np.vstack([z1,x,z2])
-    y = cv.resize(y,(20,20))/255
+    y = cv.resize(y,(20,20))
+    y /= 255
     mx,my = center(y)
     H = np.array([[1.,0,4-(mx-9.5)],[0,1,4-(my-9.5)]])
     return cv.warpAffine(y,H,(28,28))

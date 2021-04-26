@@ -13,14 +13,15 @@ import time
 # nos apoyamos en scikit-learn
 from sklearn import decomposition, discriminant_analysis
 
-# pon el path correcto, el archivo está en repo/umucv/data
-mnist = np.load("../../../data/mnist.npz")
-# extraemos los datos de entrenamiento y test, y sus etiquetas
-xl,yl,xt,yt = [mnist[d] for d in ['xl', 'yl', 'xt', 'yt']]
+# sacamos los ejemplos de entrenamiento de keras
 
-# convertimos los vectores de etiquetas "one shot" en enteros
-cl = np.argmax(yl,axis=1)
-ct = np.argmax(yt,axis=1)
+from tensorflow.keras.datasets import mnist
+
+(kxl,cl), (kxt,ct) = mnist.load_data()
+xl = kxl.reshape(len(kxl),-1)/255
+xt = kxt.reshape(len(kxt),-1)/255
+
+
 
 # fabricamos la función de reducción de dimensión
 transformer = decomposition.PCA(n_components=40).fit(xl)
@@ -109,7 +110,8 @@ def adaptsize(x):
         z1 = np.zeros([h2,s])
         z2 = np.zeros([s-h-h2,s])
         y  = np.vstack([z1,x,z2])
-    y = cv.resize(y,(20,20))/255
+    y = cv.resize(y,(20,20))
+    y /= 255
     mx,my = center(y)
     H = np.array([[1.,0,4-(mx-9.5)],[0,1,4-(my-9.5)]])
     return cv.warpAffine(y,H,(28,28))

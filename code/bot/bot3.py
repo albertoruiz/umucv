@@ -39,6 +39,7 @@ def argu(update, _):
 def work(update,_):
     file_id = update.message.photo[-1].file_id
     path = Bot.get_file(file_id)['file_path']
+    print(path)
     img = io.imread(path)
     print(img.shape, update.message.from_user.first_name)
     update.message.reply_text('{}x{}'.format(img.shape[1],img.shape[0]))
@@ -48,7 +49,7 @@ def work(update,_):
 
 
 updater.dispatcher.add_handler(CommandHandler('hello', hello))
-updater.dispatcher.add_handler(CommandHandler('argu' , argu, pass_args=True))
+updater.dispatcher.add_handler(CommandHandler('argu' , argu))
 updater.dispatcher.add_handler(MessageHandler(Filters.photo, work))
 
 
