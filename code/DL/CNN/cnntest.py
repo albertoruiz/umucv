@@ -26,10 +26,10 @@ model.add(Dense(1024))
 model.add(Dropout(rate=0.5))
 model.add(Dense(10, activation='softmax'))
 
-model.compile(loss='sparse_categorical_crossentropy',
-              optimizer='sgd',
-              metrics=['accuracy'])
+model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 model.fit(xl.reshape(-1,28,28,1)/255, cl, epochs=5, batch_size=500)
+
+model.evaluate(xt.reshape(-1,28,28,1)/255,ct, batch_size=500)
 
 model.save('digits.keras')

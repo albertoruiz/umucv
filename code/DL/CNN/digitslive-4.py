@@ -14,7 +14,7 @@ from tensorflow.keras.models import load_model
 
 # el modelo preentrenado está aquí:
 # wget https://robot.inf.um.es/material/va/digits.keras
-model = load_model('../../../data/digits.keras')
+model = load_model('digits.keras')
 
 def classifyN(xs):
     # ponemos la estructura de array que espera la red: una lista de imágenes de un canal
@@ -104,18 +104,17 @@ def adaptsize(x):
     w2 = (s-w)//2
     y = x
     if w2>0:
-        z1 = np.zeros([s,w2])
-        z2 = np.zeros([s,s-w-w2])
+        z1 = np.zeros([s,w2],np.uint8)
+        z2 = np.zeros([s,s-w-w2],np.uint8)
         y  = np.hstack([z1,x,z2])
     if h2>0:
-        z1 = np.zeros([h2,s])
-        z2 = np.zeros([s-h-h2,s])
+        z1 = np.zeros([h2,s],np.uint8)
+        z2 = np.zeros([s-h-h2,s],np.uint8)
         y  = np.vstack([z1,x,z2])
     y = cv.resize(y,(20,20))
-    y /= 255
     mx,my = center(y)
     H = np.array([[1.,0,4-(mx-9.5)],[0,1,4-(my-9.5)]])
-    return cv.warpAffine(y,H,(28,28))
+    return cv.warpAffine(y,H,(28,28))/255
 
 
 black = True
