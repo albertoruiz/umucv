@@ -55,11 +55,6 @@ def classifyG(xs):
 
 ########################################################################################
 
-# elegimos el método de clasificación que acabamos de definir
-classify = classifyG
-
-
-
 
 def binarize(gray):
     _, r = cv.threshold(gray, 128, 255, cv.THRESH_BINARY+cv.THRESH_OTSU)
@@ -130,7 +125,7 @@ for key, frame in autoStream():
     # clasificamos los objetos midiendo el tiempo
     t0 = time.time()
     if nor:
-        clas,prob = classify(nor)
+        clas,prob = classifyG(nor)
     else:
         clas,prob = [],[]
     t1 = time.time()

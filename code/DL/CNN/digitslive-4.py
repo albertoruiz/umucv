@@ -14,7 +14,7 @@ from tensorflow.keras.models import load_model
 
 # el modelo preentrenado está aquí:
 # wget https://robot.inf.um.es/material/va/digits.keras
-model = load_model('digits.keras')
+model = load_model('../../../data/digits.keras')
 
 def classifyN(xs):
     # ponemos la estructura de array que espera la red: una lista de imágenes de un canal
@@ -25,39 +25,7 @@ def classifyN(xs):
     pm = np.max(p,axis=1)
     return r,pm
 
-# (mas abajo elegiremos esta función de clasificación para comparar con la anterior)
-
 ########################################################################################
-
-
-from tensorflow.keras.datasets import mnist
-
-(kxl,cl), (kxt,ct) = mnist.load_data()
-xl = kxl.reshape(len(kxl),-1)/255
-xt = kxt.reshape(len(kxt),-1)/255
-
-from sklearn import decomposition, discriminant_analysis
-
-transformer = decomposition.PCA(n_components=40).fit(xl)
-
-xrl = transformer.transform(xl)
-xrt = transformer.transform(xt)
-
-maq = discriminant_analysis.QuadraticDiscriminantAnalysis(store_covariance=True).fit(xrl,cl)
-
-print( (maq.predict(xrt) == ct ).mean() )
-
-def classifyG(xs):
-    t = np.array(xs).reshape(-1,28*28)
-    p = maq.predict_proba(transformer.transform(t))
-    r = np.argmax(p,axis=1)
-    pm = np.max(p,axis=1)
-    return r,pm
-########################################################################################
-
-
-# elegimos la red convolucional
-classify = classifyN
 
 # el resto del código es exactamente igual
 
@@ -129,7 +97,7 @@ for key, frame in autoStream():
 
     t0 = time.time()
     if nor:
-        clas,prob = classify(nor)
+        clas,prob = classifyN(nor)
     else:
         clas,prob = [],[]
     t1 = time.time()
