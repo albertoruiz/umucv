@@ -4,7 +4,7 @@
 
 # Puedes probarlo con
 #  ./polygon0.py --dev=../../images/rot4.mjpg
-#  ./polygon0.py --dev=../../images/marker.png
+#  ./polygon0.py --dev=dir:../../images/marker.png
 # o con la cámara, imprimiendo el marcador ../../images/ref.png
 # o poniéndolo en la pantalla del ordenador o del móvil.
 

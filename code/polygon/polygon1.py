@@ -7,7 +7,7 @@
 
 # en esta imagen hay figuras parecidas pero que no son el marcador:
 
-#  ./polygon1.py --dev=../../images/polis.png
+#  ./polygon1.py --dev=dir:../../images/polis.png
 
 
 from umucv.stream   import autoStream
