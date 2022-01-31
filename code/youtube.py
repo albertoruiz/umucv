@@ -1,16 +1,17 @@
 #!/usr/bin/env python
 
-# pip install pafy youtube-dl
+# pip install youtube-dl
+# pip install git+https://github.com/Cupcakus/pafy
 
 uso ="""
 Muestra los streams disponibles de un vídeo:
 > ./youtube.py C6LuDdY-KrQ
 
 Imprime la url del stream seleccionado:
-> ./youtube.py 5 C6LuDdY-KrQ
+> ./youtube.py 6 C6LuDdY-KrQ
 
 Con backquote se lo podemos pasar a --dev
-> ./stream.py --dev=`./youtube.py 5 C6LuDdY-KrQ`
+> ./stream.py --dev=`./youtube.py 6 C6LuDdY-KrQ`
 
 Si lo guardamos en una carpeta que esté en el path
 podemos usarlo desde cualquier sitio (quitando ./ ).
@@ -27,7 +28,7 @@ if len(args) in [2,3]:
     streams = video.videostreams
     if len(args) == 3:
         n = int(args[1])
-        print(print(streams[n].url))
+        print(streams[n].url)
     else:
         for k,s in enumerate(streams):
             print(k,s)

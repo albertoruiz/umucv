@@ -1,7 +1,8 @@
-playa = http://213.4.39.225:81/mjpg/video.mjpg
+carretera = https://iihrwc02.iowa.uiowa.edu/axis-cgi/mjpg/video.cgi?resolution=704x480
 
 voley = http://robot.inf.um.es/material/va/voley.webm
 
-phone = rtsp://155.54.X.X:5540/ch0
+phone = rtsp://192.168.1.130:5540/ch0
 
+tve1 = http://hlsliveamdgl7-lh.akamaihd.net/i/hlsdvrlive_1@583042/index_0400_av-p.m3u8?sd=10&rebase=on
 
