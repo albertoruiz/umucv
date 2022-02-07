@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 # Ejemplo de reproyección de histograma
 
 # Seleccionando un roi y pulsando c se captura el modelo de
