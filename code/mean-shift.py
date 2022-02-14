@@ -51,13 +51,13 @@ for key,frame in autoStream():
         # las imágenes de float se muestran en la escala 0:negro 1:blanco
         cv.imshow('likelihood', L/L.max())
         
-        
-        # tracking mediante camshift de opencv
-        term_crit = (cv.TERM_CRITERIA_EPS | cv.TERM_CRITERIA_COUNT, 10, 1)
-        elipse, track_window = cv.CamShift(L, track_window, term_crit )
-        cv.ellipse(frame, elipse, (0,128,255), 2)
-        (c,r,w,h) = track_window
-        cv.rectangle(frame, (c,r), (c+w, r+h), (0,128,255), 1)
+        if True:
+            # tracking mediante camshift de opencv
+            term_crit = (cv.TERM_CRITERIA_EPS | cv.TERM_CRITERIA_COUNT, 10, 1)
+            elipse, track_window = cv.CamShift(L, track_window, term_crit )
+            cv.ellipse(frame, elipse, (0,128,255), 2)
+            (c,r,w,h) = track_window
+            cv.rectangle(frame, (c,r), (c+w, r+h), (0,128,255), 1)
         
 
         # implementación propia de mean shift

@@ -3,12 +3,12 @@
 import cv2 as cv
 from umucv.stream import autoStream
 
-def fun(event, x, y, flags, param):
+def manejador(event, x, y, flags, param):
     if event == cv.EVENT_LBUTTONDOWN:
         print(x,y)
 
 cv.namedWindow("webcam")
-cv.setMouseCallback("webcam", fun)
+cv.setMouseCallback("webcam", manejador)
 
 
 for key, frame in autoStream():
