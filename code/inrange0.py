@@ -1,13 +1,12 @@
 #!/usr/bin/env python
 
-# Este programa tiene 4 objetivos:
+# Este programa tiene 2 objetivos:
 # 1) Ilustrar la construcción de una máscara que indica
 #    la localización de objetos de un color caractéristico,
 #    mediante una sencilla umbralización.
 # 2) Comprobar que el espacio de color HSV es útil para esto.
 
-# 3) (En la versión completa
-# 4)  inrange.py)
+# (En la versión completa inrange.py se trabaja con las regiones obtenidas)
 
 # python inrange0.py --dev=dir:../images/naranjas/*.jpg --resize=0x400
 # python inrange0.py --dev=dir:../images/demos/fruits.png

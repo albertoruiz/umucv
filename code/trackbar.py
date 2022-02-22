@@ -18,7 +18,7 @@ for key, frame in autoStream():
     logica = gray > h
     #print(logica)
     #binary = logica.astype(np.uint8)*128
-    binary = logica.astype(np.float)
+    binary = logica.astype(float)
     #print(binary)
     cv.imshow('binary', binary )
 
