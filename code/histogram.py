@@ -2,16 +2,9 @@
 
 import cv2 as cv
 import numpy as np
-import matplotlib.pyplot as plt
+from umucv.stream import autoStream
 
-cap = cv.VideoCapture(0)
-
-while True:
-    key = cv.waitKey(1) & 0xFF
-    if key == 27: break
-
-    ret, frame = cap.read()
-
+for key, frame in autoStream():
     gray = cv.cvtColor(frame,cv.COLOR_BGR2GRAY)
 
     # agrupamos los niveles de gris en intervalos de ancho 4
