@@ -9,9 +9,10 @@ from umucv.util import putText
 
 # inicializamos el detector con los parámetros de trabajo deseados
 # mira en la documentación su significado y prueba distintos valores
-# https://docs.opencv.org/3.4/d5/d3c/classcv_1_1xfeatures2d_1_1SIFT.html
+# https://docs.opencv.org/4.x/da/df5/tutorial_py_sift_intro.html
+# https://docs.opencv.org/4.x/d7/d60/classcv_1_1SIFT.html
 
-sift = cv.xfeatures2d.SIFT_create(nfeatures=0, contrastThreshold=0.1, edgeThreshold=8)
+sift = cv.SIFT_create(nfeatures=0, contrastThreshold=0.1, edgeThreshold=8)
 # sift = cv.AKAZE_create()
 
 for key, frame in autoStream():
