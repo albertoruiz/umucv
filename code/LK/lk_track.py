@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# La solución anterior (corners3.py) tiene el problema de que las asociaciones de puntos
+# La solución anterior (lk_track1.py) tiene el problema de que las asociaciones de puntos
 # a veces son incorrectas y el número de trayectorias crece indefinidamente
 # repitiendo puntos. Esto se soluciona con dos mejoras.
 
