@@ -4,6 +4,7 @@
 
 # (en este caso cuando se pulsa la tecla b,
 # pero la idea es enviarla cuando se detecta actividad, etc.)
+import os
 
 from telegram.ext import Updater
 
@@ -12,13 +13,16 @@ from PIL import Image
 import cv2 as cv
 from umucv.stream import autoStream
 
-from mybotid import myid, mybot
+from dotenv import load_dotenv
 
-Bot = Updater(mybot).bot
+load_dotenv()
+
+Bot = Updater(os.environ['TOKEN']).bot
+
 
 def sendImage(userid, frame):
     frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
-    image = Image.fromarray(frame, mode = 'RGB')
+    image = Image.fromarray(frame, mode='RGB')
     byte_io = BytesIO()
     image.save(byte_io, 'PNG')
     byte_io.seek(0)
@@ -26,7 +30,6 @@ def sendImage(userid, frame):
 
 
 for key, frame in autoStream():
-    cv.imshow('image',frame)
+    cv.imshow('image', frame)
     if key == ord('b'):
-        sendImage(myid, frame)
-
+        sendImage(os.environ['USER_ID'], frame)
