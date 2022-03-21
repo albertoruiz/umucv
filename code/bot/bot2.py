@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 
 # responde a comandos
+import os
 
 from telegram.ext import Updater, CommandHandler
 import threading
@@ -10,9 +11,11 @@ from PIL import Image
 import cv2 as cv
 from umucv.stream import Camera
 
-from mybotid import myid, mybot
+from dotenv import load_dotenv
 
-updater = Updater(mybot)
+load_dotenv()
+
+updater = Updater(os.environ['TOKEN'])
 
 Bot = updater.bot
 
@@ -25,7 +28,7 @@ def shutdown():
 
 def stop(update,_):
     cid = update.message.chat_id
-    if cid != myid:
+    if cid != os.environ['USER_ID']:
         return
     update.message.reply_text('Bye!')
     threading.Thread(target=shutdown).start()
