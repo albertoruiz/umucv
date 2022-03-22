@@ -16,6 +16,12 @@ if False:
     def getframe():
         ret, frame = cap.read()
         return cv.cvtColor(frame, cv.COLOR_BGR2RGB)
+elif False:
+    from umucv.stream import autoStream
+    stream = autoStream()
+    def getframe():
+        _,frame = next(stream)
+        return cv.cvtColor(frame, cv.COLOR_BGR2RGB)
 else:
     # captura asíncrona en un hilo
     # para devolver siempre el frame más reciente
