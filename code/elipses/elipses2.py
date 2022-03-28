@@ -3,7 +3,7 @@
 # Rectificación del marcador de 4 círculos
 # pruébalo con:
 
-# ./elipses0a.py --dev=dir:*.png
+# ./elipses2.py --dev=dir:*.png
 
 
 from umucv.stream   import autoStream
