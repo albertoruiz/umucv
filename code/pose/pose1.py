@@ -6,11 +6,11 @@
 
 # pruébalo con el vídeo de siempre
 
-# ./pose1.py --dev=file:../images/rot4.mjpg
+# ./pose1.py --dev=../../images/rot4.mjpg
 
 # con la imagen de prueba
 
-# ./pose1.py --dev=--dir:../../images/marker.png
+# ./pose1.py --dev=dir:../../images/marker.png
 
 # o con la webcam poniéndolo en el teléfono o el monitor.
 

@@ -3,7 +3,7 @@
 # en esta versión usamos pyqtgraph para mostrar la posición
 # de la cámara en 3D
 
-# python pose3D.py --dev=file:../images/rot4.mjpg
+# python pose3D.py --dev=../../images/rot4.mjpg
 
 
 import pyqtgraph as pg
