@@ -1,0 +1,11 @@
+mediapipe
+pyqtgraph
+pyopengl
+pyqt5==5.14.1
+jupyter
+matplotlib
+scikit-learn
+scikit-image
+pydot
+http://robot.inf.um.es/material/umucv.tar.gz 
+http://robot.inf.um.es/material/va/dlib-19.22.1-cp38-cp38-linux_x86_64.whl
