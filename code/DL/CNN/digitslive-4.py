@@ -14,7 +14,7 @@ from tensorflow.keras.models import load_model
 
 # el modelo preentrenado está aquí:
 # wget https://robot.inf.um.es/material/va/digits.keras
-model = load_model('../../../data/digits.keras')
+model = load_model('digits.keras')
 
 def classifyN(xs):
     # ponemos la estructura de array que espera la red: una lista de imágenes de un canal
