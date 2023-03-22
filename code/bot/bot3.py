@@ -11,9 +11,7 @@ from PIL import Image
 import cv2 as cv
 import skimage.io as io
 import numpy as np
-
-load_dotenv()
-
+import os
 
 ################################################################################
 
@@ -22,10 +20,10 @@ def process(img):
     r = np.fliplr(r)
     return r
 
-
 ################################################################################
 
-
+load_dotenv('token.env')
+updater = Updater(os.environ['TOKEN'])
 Bot = updater.bot
 
 def sendImage(userid, frame):
@@ -57,11 +55,9 @@ def work(update,_):
     r = process(img)
     sendImage(update.message.chat.id, r)
 
-
 updater.dispatcher.add_handler(CommandHandler('hello', hello))
 updater.dispatcher.add_handler(CommandHandler('argu' , argu))
 updater.dispatcher.add_handler(MessageHandler(Filters.photo, work))
-
 
 updater.start_polling()
 updater.idle()
