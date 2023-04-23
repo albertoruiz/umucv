@@ -54,13 +54,6 @@ marker = np.array(
         [1,   0.5, 0],
         [1,   0,   0]])
 
-square = np.array(
-       [[0,   0,   0],
-        [0,   1,   0],
-        [1,   1,   0],
-        [1,   0,   0]])
-
-
 
 def polygons(cs,n,prec=2):
     rs = [ redu(c,prec) for c in cs ]

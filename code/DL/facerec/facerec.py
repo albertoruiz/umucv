@@ -6,7 +6,14 @@
 # que transforma la cara, una vez alineada a un marco común 
 # mediante los landmarks, en un vector de propiedades de dimensión 128.
 
+# pip uninstall dlib
+# pip install dlib==19.22.1
+
 # pip install face_recognition
+
+# Ejemplo:
+# ./facerec.py --dev dir ../../../images/monty-python*.*
+
 
 # adaptado de
 # https://github.com/ageitgey/face_recognition/blob/master/examples/facerec_from_webcam.py

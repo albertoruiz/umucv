@@ -1,0 +1,7 @@
+./calibrate.py --dev glob:../mylogitech/*.png
+
+./verify.py --dev dir:../mylogitech/*.png
+
+./undistort2.py --dev dir:../mylogitech/*.png
+ 
+./undistort2.py --dev dir:../mylogitech/*.png

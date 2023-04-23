@@ -12,15 +12,15 @@ from umucv.stream import autoStream
 MODEL=0
 
 if MODEL==0:
-    from keras.applications.inception_v3 import InceptionV3, preprocess_input, decode_predictions
+    from tensorflow.keras.applications.inception_v3 import InceptionV3, preprocess_input, decode_predictions
     model = InceptionV3(weights='imagenet')
     S = 299
 if MODEL==1:
-    from keras.applications.vgg16 import VGG16, preprocess_input, decode_predictions
+    from tensorflow.keras.applications.vgg16 import VGG16, preprocess_input, decode_predictions
     model = VGG16(weights='imagenet')
     S = 224
 if MODEL==2:
-    from keras.applications.resnet50 import ResNet50, preprocess_input, decode_predictions
+    from tensorflow.keras.applications.resnet50 import ResNet50, preprocess_input, decode_predictions
     model = ResNet50(weights='imagenet')
     S = 224
 
