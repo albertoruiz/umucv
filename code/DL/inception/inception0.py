@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 # pip install tensorflow
-# pip install keras
 
 import cv2   as cv
 import numpy as np

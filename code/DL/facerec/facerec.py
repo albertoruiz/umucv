@@ -12,7 +12,7 @@
 # pip install face_recognition
 
 # Ejemplo:
-# ./facerec.py --dev dir ../../../images/monty-python*.*
+# ./facerec.py --dev:dir ../../../images/monty-python*.*
 
 
 # adaptado de
@@ -41,9 +41,10 @@ names = [ x.split('/')[-1].split('.')[0].split('-')[0] for x in filenames ]
 encodings = [ face_recognition.face_encodings(x)[0] for x in models ]
 
 
-#print(names)
+print(names)
 #print(encodings)
 print(encodings[0].shape)
+print(encodings[0])
 
 for key, frame in autoStream():
 
