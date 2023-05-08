@@ -492,7 +492,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.9899495"
-     inkscape:cx="835.62552"
+     inkscape:cx="691.53211"
      inkscape:cy="371.69278"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
@@ -518,7 +518,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -1926,30 +1926,30 @@
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#803300;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none"
        x="312.96887"
-       y="151.25325"
+       y="145.96165"
        id="text849-9-0"><tspan
          sodipodi:role="line"
          id="tspan847-7-5"
          x="312.96887"
-         y="151.25325"
+         y="145.96165"
          style="fill:#803300;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none">MACHINE LEARNING</tspan></text>
     <rect
-       style="opacity:1;fill:none;fill-opacity:1;stroke:#a34530;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#a34530;stroke-width:1.09277606;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect851-2-8"
-       width="48.60931"
-       height="54.236332"
-       x="305.16107"
-       y="145.1519" />
+       width="48.559811"
+       height="64.832863"
+       x="305.18582"
+       y="140.14328" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#803300;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none"
        x="312.40189"
-       y="160.8916"
+       y="154.01253"
        id="text849-9-0-4"><tspan
          sodipodi:role="line"
          id="tspan847-7-5-4"
          x="312.40189"
-         y="160.8916"
+         y="154.01253"
          style="fill:#803300;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none">svm</tspan></text>
     <rect
        style="opacity:1;fill:none;fill-opacity:1;stroke:#a34530;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
@@ -1957,17 +1957,17 @@
        width="14.32418"
        height="7.630619"
        x="308.94083"
-       y="155.92419" />
+       y="149.04512" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#803300;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none"
        x="331.5842"
-       y="160.51361"
+       y="153.63454"
        id="text849-9-0-4-8"><tspan
          sodipodi:role="line"
          id="tspan847-7-5-4-5"
          x="331.5842"
-         y="160.51361"
+         y="153.63454"
          style="fill:#803300;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none">adaboost</tspan></text>
     <rect
        style="opacity:1;fill:none;fill-opacity:1;stroke:#a34530;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
@@ -1975,34 +1975,34 @@
        width="20.560795"
        height="7.2526388"
        x="329.44604"
-       y="155.92419" />
+       y="149.04512" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#803300;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none"
        x="316.96051"
-       y="175.90387"
+       y="168.49564"
        id="text849-9-0-4-8-7"><tspan
          sodipodi:role="line"
          id="tspan847-7-5-4-5-2"
          x="316.96051"
-         y="175.90387"
+         y="168.49564"
          style="fill:#803300;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none">neural network</tspan></text>
     <rect
-       style="opacity:1;fill:none;fill-opacity:1;stroke:#a34530;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#a34530;stroke-width:0.6212244;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect851-2-8-9-1-7"
-       width="38.514656"
-       height="24.828512"
-       x="310.09766"
-       y="171.50345" />
+       width="38.468182"
+       height="38.373558"
+       x="310.12088"
+       y="163.54784" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#803300;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none"
        x="317.90546"
-       y="190.83392"
+       y="182.89653"
        id="text849-9-0-4-8-9"><tspan
          sodipodi:role="line"
          x="317.90546"
-         y="190.83392"
+         y="182.89653"
          style="fill:#803300;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none"
          id="tspan10012">convolutional</tspan></text>
     <rect
@@ -2011,68 +2011,68 @@
        width="26.986362"
        height="7.630599"
        x="316.52328"
-       y="186.24451" />
+       y="178.30711" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#4d4d4d;fill-opacity:1;stroke:none;stroke-width:0.26458332"
        x="318.16162"
-       y="181.03259"
+       y="174.15352"
        id="text827-5-15-8"><tspan
          style="stroke-width:0.26458332"
          sodipodi:role="line"
          id="tspan3740-1-2"
          x="318.16162"
-         y="181.03259">deep learning zoo</tspan><tspan
+         y="174.15352">deep learning zoo</tspan><tspan
          style="stroke-width:0.26458332"
          sodipodi:role="line"
          x="318.16162"
-         y="184.56036"
+         y="177.68129"
          id="tspan13021-3" /><tspan
          style="stroke-width:0.26458332"
          sodipodi:role="line"
          x="318.16162"
-         y="188.08815"
+         y="181.20908"
          id="tspan10043" /><tspan
          style="stroke-width:0.26458332"
          sodipodi:role="line"
          x="318.16162"
-         y="191.61592"
+         y="184.73685"
          id="tspan13023-9" /><tspan
          style="stroke-width:0.26458332"
          sodipodi:role="line"
          x="318.16162"
-         y="195.14371"
+         y="188.26463"
          id="tspan13025-11" /></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#4d4d4d;fill-opacity:1;stroke:none;stroke-width:0.26458332"
        x="324.46375"
-       y="167.48016"
+       y="160.60109"
        id="text827-5-15-8-2"><tspan
          style="stroke-width:0.26458332"
          sodipodi:role="line"
          id="tspan3740-1-2-8"
          x="324.46375"
-         y="167.48016">etc</tspan><tspan
+         y="160.60109">etc</tspan><tspan
          style="stroke-width:0.26458332"
          sodipodi:role="line"
          x="324.46375"
-         y="171.00793"
+         y="164.12886"
          id="tspan13021-3-5" /><tspan
          style="stroke-width:0.26458332"
          sodipodi:role="line"
          x="324.46375"
-         y="174.53572"
+         y="167.65665"
          id="tspan10043-3" /><tspan
          style="stroke-width:0.26458332"
          sodipodi:role="line"
          x="324.46375"
-         y="178.06349"
+         y="171.18442"
          id="tspan13023-9-5" /><tspan
          style="stroke-width:0.26458332"
          sodipodi:role="line"
          x="324.46375"
-         y="181.59128"
+         y="174.7122"
          id="tspan13025-11-2" /></text>
     <text
        xml:space="preserve"
@@ -2259,5 +2259,23 @@
        id="path859-4-0-8-1-27-6"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#803300;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none"
+       x="313.67206"
+       y="194.76041"
+       id="text849-9-0-4-8-9-3"><tspan
+         sodipodi:role="line"
+         x="313.67206"
+         y="194.76041"
+         style="fill:#803300;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none"
+         id="tspan10012-6">visual transformer</tspan></text>
+    <rect
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#a34530;stroke-width:0.55903536;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect851-2-8-9-1-0-7"
+       width="33.850548"
+       height="7.6045914"
+       x="312.85333"
+       y="190.18399" />
   </g>
 </svg>
