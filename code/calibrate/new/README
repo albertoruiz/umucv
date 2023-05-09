@@ -2,6 +2,6 @@
 
 ./verify.py --dev dir:../mylogitech/*.png
 
-./undistort2.py --dev dir:../mylogitech/*.png
+./undistort1.py --dev dir:../mylogitech/*.png
  
 ./undistort2.py --dev dir:../mylogitech/*.png
