@@ -5,3 +5,8 @@
 ./undistort1.py --dev dir:../mylogitech/*.png
  
 ./undistort2.py --dev dir:../mylogitech/*.png
+
+
+Para el capítulo de visión estéreo:
+./triangulate.py --dev dir:../mylogitech/*.png
+
