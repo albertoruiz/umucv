@@ -1,0 +1,14 @@
+mediapipe
+jupyterlab
+scikit-learn
+scikit-image
+marimo
+ipympl
+http://robot.inf.um.es/material/umucv.tar.gz
+vispy
+jupyter_rfb
+pyqtgraph==0.12.3
+pyqt5==5.14.1
+pyopengl
+http://robot.inf.um.es/material/va/dlib-19.24.2-cp311-cp311-linux_x86_64.whl
+
