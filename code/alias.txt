@@ -1,8 +1,11 @@
 carretera = https://iihrwc02.iowa.uiowa.edu/axis-cgi/mjpg/video.cgi?resolution=704x480
 
+lamanga = https://webcam.lamanga.travel/hls/test.m3u8
+
 voley = http://robot.inf.um.es/material/va/voley.webm
 
-phone = rtsp://192.168.1.130:5540/ch0
+phone = rtsp://192.168.1.135:5540/ch0
 
-tve1 = http://hlsliveamdgl7-lh.akamaihd.net/i/hlsdvrlive_1@583042/index_0400_av-p.m3u8?sd=10&rebase=on
+tv = http://america-crtvg.flumotion.com/playlist.m3u8
+
 
