@@ -40,7 +40,8 @@ for fn in files:
 rms, camera_matrix, dist_coefs, rvecs, tvecs = cv.calibrateCamera(obj_points, img_points, (w, h), None, None)
 
 print("RMS:", rms)
-print("camera matrix:\n", camera_matrix)
-print("distortion coefficients: ", dist_coefs.ravel())
+print("camera matrix:\n", np.round((camera_matrix)))
+print("distortion coefficients: ", np.round(dist_coefs.ravel(),3))
 
+np.savetxt('calib.txt', np.array([x for x in camera_matrix.flatten()]+[x for x in dist_coefs.flatten()]))
 
