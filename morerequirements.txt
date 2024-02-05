@@ -1,0 +1,8 @@
+yt-dlp
+flask
+commonmark
+cogapp
+face_recognition
+pymde
+git+https://github.com/facebookresearch/segment-anything.git
+
