@@ -1,6 +1,7 @@
 yt-dlp
 flask
 commonmark
+julian
 cogapp
 face_recognition
 pymde
