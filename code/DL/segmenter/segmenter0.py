@@ -26,7 +26,7 @@ from umucv.stream import autoStream
 
 for key, frame in autoStream():
     rgb = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
-    mpimage = mpimage = mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb)
+    mpimage = mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb)
 
     segmentation_result = segmenter.segment(mpimage)
     category_mask = segmentation_result.category_mask.numpy_view()
