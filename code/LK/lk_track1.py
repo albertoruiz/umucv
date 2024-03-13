@@ -4,18 +4,15 @@
 # Cada trayectoria tiene una longitud máxima.
 # Se añaden nuevos puntos iniciales cada "detect_interval" frames.
 
-
 import cv2 as cv
 import numpy as np
 from umucv.stream import autoStream, sourceArgs
 from umucv.util import putText
 import time
 
-
 tracks = []
 track_len = 20
 detect_interval = 5
-
 
 corners_params = dict( maxCorners = 500,
                        qualityLevel= 0.1,
@@ -28,14 +25,12 @@ lk_params = dict( winSize  = (15, 15),
                   criteria = (cv.TERM_CRITERIA_EPS | cv.TERM_CRITERIA_COUNT, 10, 0.03))
 
 
-
 for n, (key, frame) in enumerate(autoStream()):
     gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
     
     t0 = time.time()
-    if len(tracks):
+    if tracks:
 
-       
         # sacamos los últimos puntos de cada trayectoria
         p0 = np.float32( [t[-1] for t in tracks] )
         
@@ -61,13 +56,13 @@ for n, (key, frame) in enumerate(autoStream()):
     
     t1 = time.time()
     
-    # Añadimos nuevos principios de trayectoria con puntos nuevos
+    # Añadimos periódicamente trayectorias con puntos nuevos
     if n % detect_interval == 0:
         corners = cv.goodFeaturesToTrack(gray, **corners_params).reshape(-1,2)
         if corners is not None:
             for x, y in np.float32(corners):
                 tracks.append( [  [ x,y ]  ] )
-
+    
     putText(frame, f'{len(tracks)} corners, {(t1-t0)*1000:.0f}ms' )
     cv.imshow('input', frame)
     prevgray = gray

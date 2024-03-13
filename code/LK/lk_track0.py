@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 
 # Calculamos la posición de las esquinas en sucesivos frames
-# pero no calculándolas de nuevo, sino estimando la posición
-# a la que se mueve cada una mediante cv.calcOpticalFlowPyrLK
+# pero no detectando nuevas esquinas y asociándolas con las
+# anteriores, sino estimando la posición a la que se mueve cada
+# una mediante cv.calcOpticalFlowPyrLK
 
 import cv2 as cv
 import numpy as np

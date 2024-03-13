@@ -9,7 +9,7 @@ from umucv.stream import autoStream
 from umucv.util import putText
 import time
 
-# suavizdo
+# suavizado
 def gaussian(s,x):
     return cv.GaussianBlur(x,(0,0), s)
 

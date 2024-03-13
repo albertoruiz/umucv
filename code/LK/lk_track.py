@@ -28,7 +28,7 @@ for n, (key, frame) in enumerate(autoStream()):
     gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
     
     t0 = time.time()
-    if len(tracks):
+    if tracks:
         
         # el criterio para considerar bueno un punto siguiente es que si lo proyectamos
         # hacia el pasado, vuelva muy cerca del punto incial, es decir:
@@ -50,8 +50,6 @@ for n, (key, frame) in enumerate(autoStream()):
 
         tracks = new_tracks
 
-
-        # dibujamos las trayectorias
         cv.polylines(frame, [ np.int32(t) for t in tracks ], isClosed=False, color=(0,0,255))
         for t in tracks:
             x,y = np.int32(t[-1])
@@ -59,10 +57,7 @@ for n, (key, frame) in enumerate(autoStream()):
 
     t1 = time.time()    
 
-    
-    # resetear el tracking
-    if n % detect_interval == 0:
-        
+    if n % detect_interval == 0:        
         # Creamos una máscara para indicar al detector de puntos nuevos las zona
         # permitida, que es toda la imagen, quitando círculos alrededor de los puntos
         # existentes (los últimos de las trayectorias).
