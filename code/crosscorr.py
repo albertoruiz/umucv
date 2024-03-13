@@ -37,7 +37,9 @@ for key, frame in autoStream():
         #mr,mc = divmod(cc.argmax(),cc.shape[1])
         #cv.imshow('CC',cc)
         putText(cc,f'max correlation {max_val:.2f}')
-        cv.imshow('CC',(cc-min_val)/(max_val-min_val))
+        ccn = (cc-min_val)/(max_val-min_val)
+        cv.circle(ccn, (x1,y1), 3, 0)
+        cv.imshow('CC',ccn)
         x1,y1 = max_loc
         h,w = model.shape[:2]
         x2 = x1+w; y2 = y1+h
