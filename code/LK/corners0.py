@@ -46,7 +46,7 @@ for key, frame in autoStream():
     sxy = gaussian(5,xyg)
     
     # valor propio más pequeño en cada pixel, que indica la intensidad de esquina
-    lmin = sx2 + sy2 - np.sqrt(sx2**2 + sy2**2 + 4*sxy**2 - 2*sx2*sy2)
+    lmin = sx2 + sy2 - np.sqrt( (sx2-sy2)**2 + 4*sxy**2 )
     
     cv.imshow('lambda min',  lmin/lmin.max() )
     

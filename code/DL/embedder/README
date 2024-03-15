@@ -1,0 +1,12 @@
+Podemos implementar nosotros mismos la similitud del coseno como
+se muestra en similarity2.py, pero hay que tener cuidado al extraer
+el vector. Si ponemos la opción quantize=False entonces simplemente:
+
+descriptor = embedder.embed(mpimage).embeddings[0].embedding
+
+Pero si quantize=True entonces hay que hacer una conversión:
+
+descriptor = embedder.embed(mpimage).embeddings[0].embedding.view('int8').astype(float)
+
+La función de mediapipe vision.ImageEmbedder.cosine_similarity tiene
+en cuenta automáticamamente las dos posibilidades.
