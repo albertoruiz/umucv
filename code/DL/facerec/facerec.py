@@ -21,8 +21,17 @@ import cv2 as cv
 import numpy as np
 import time
 from umucv.util import putText
-from umucv.stream import autoStream
+from umucv.stream import autoStream, sourceArgs
 import glob
+
+import argparse, sys
+parser = argparse.ArgumentParser()
+parser.add_argument('--models', help='folder with models', type=str, default='gente')
+sourceArgs(parser)
+args, rest = parser.parse_known_args(sys.argv)
+assert len(rest)==1, 'unknown parameters: '+str(rest[1:])
+
+
 
 def readrgb(filename):
     return cv.cvtColor(cv.imread(filename), cv.COLOR_BGR2RGB) 
@@ -32,7 +41,7 @@ def readModels(path):
     models = [ readrgb(f) for f in fmods ]
     return fmods, models
 
-filenames, models = readModels('gente')
+filenames, models = readModels(args.models)
 names = [ x.split('/')[-1].split('.')[0].split('-')[0] for x in filenames ]
 encodings = [ face_recognition.face_encodings(x)[0] for x in models ]
 
