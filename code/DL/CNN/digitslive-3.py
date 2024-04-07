@@ -15,12 +15,14 @@ from sklearn import decomposition, discriminant_analysis
 
 # sacamos los ejemplos de entrenamiento de keras
 
-from tensorflow.keras.datasets import mnist
+import os
+os.environ["KERAS_BACKEND"] = "torch"
 
-(kxl,cl), (kxt,ct) = mnist.load_data()
+import keras
+
+(kxl,cl), (kxt,ct) = keras.datasets.mnist.load_data()
 xl = kxl.reshape(len(kxl),-1)/255
 xt = kxt.reshape(len(kxt),-1)/255
-
 
 
 # fabricamos la función de reducción de dimensión

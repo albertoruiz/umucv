@@ -6,4 +6,7 @@ cogapp
 face_recognition
 pymde
 git+https://github.com/facebookresearch/segment-anything.git
-
+keras
+jax[cpu]
+pyzbar
+tesserocr

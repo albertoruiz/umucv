@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# 4) Usamos la red convolucional que hemos entrenado en el notebook
+# 4) Usamos la red convolucional que hemos entrenado
 
 import cv2 as cv
 import numpy as np
@@ -10,17 +10,20 @@ import time
 
 ##############################################################################
 
-from tensorflow.keras.models import load_model
+import os
+os.environ["KERAS_BACKEND"] = "torch"
+
+import keras
 
 # el modelo preentrenado está aquí:
 # wget https://robot.inf.um.es/material/va/digits.keras
-model = load_model('digits.keras')
+model = keras.models.load_model('digits.keras')
 
 def classifyN(xs):
     # ponemos la estructura de array que espera la red: una lista de imágenes de un canal
     t = np.array(xs).reshape(-1,28,28,1)
     # y hacemos lo mismo de antes, devolvemos la clase más probable y su probabilidad
-    p = model.predict(t)
+    p = model.predict(t,verbose=False)
     r = np.argmax(p,axis=1)
     pm = np.max(p,axis=1)
     return r,pm

@@ -21,7 +21,7 @@ def binarize(gray):
 # cálculo de las componentes conexas. Devuelve en una lista con las que tienen
 # un tamaño intermedio (se debería controlar el intervalo de áreas permitidas con trackbar)
 # Se devuelven los recortes de cada componente conexa obtenidos con los bounding box.
-# Pero ojo: en cada recorte quitamos los pixels que de otras componentes.
+# Pero ojo: en cada recorte quitamos los pixels de otras componentes.
 # (no suele ocurrir, pero un bounding box puede abarcar un trozo de otro número).
 # Devolvemos también el centro para escribir luego en esa posición de la imagen el resultado de la clasificación.
 def ccs(mask):
