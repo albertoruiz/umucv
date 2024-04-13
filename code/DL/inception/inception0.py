@@ -8,18 +8,21 @@ import time
 from umucv.util import putText
 from umucv.stream import autoStream
 
+import os
+os.environ["KERAS_BACKEND"] = "torch"
+
 MODEL=0
 
 if MODEL==0:
-    from tensorflow.keras.applications.inception_v3 import InceptionV3, preprocess_input, decode_predictions
+    from keras.applications.inception_v3 import InceptionV3, preprocess_input, decode_predictions
     model = InceptionV3(weights='imagenet')
     S = 299
 if MODEL==1:
-    from tensorflow.keras.applications.vgg16 import VGG16, preprocess_input, decode_predictions
+    from keras.applications.vgg16 import VGG16, preprocess_input, decode_predictions
     model = VGG16(weights='imagenet')
     S = 224
 if MODEL==2:
-    from tensorflow.keras.applications.resnet50 import ResNet50, preprocess_input, decode_predictions
+    from keras.applications.resnet50 import ResNet50, preprocess_input, decode_predictions
     model = ResNet50(weights='imagenet')
     S = 224
 

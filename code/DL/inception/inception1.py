@@ -7,7 +7,11 @@ import time
 from umucv.util import putText
 from umucv.stream import autoStream
 
-from tensorflow.keras.applications.inception_v3 import InceptionV3, preprocess_input, decode_predictions
+
+import os
+os.environ["KERAS_BACKEND"] = "torch"
+
+from keras.applications.inception_v3 import InceptionV3, preprocess_input, decode_predictions
 
 model = InceptionV3(weights='imagenet')
 

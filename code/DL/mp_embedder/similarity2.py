@@ -18,7 +18,7 @@ def my_cosine_sim(u,v):
 
 options = vision.ImageEmbedderOptions(
     base_options = python.BaseOptions(model_asset_path='embedder.tflite'),
-    l2_normalize = True, quantize = False)
+    l2_normalize = False, quantize = False)
 
 embedder = vision.ImageEmbedder.create_from_options(options)
 

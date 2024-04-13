@@ -1,5 +1,5 @@
-Podemos implementar nosotros mismos la similitud del coseno como
-se muestra en similarity2.py, pero hay que tener cuidado al extraer
+Podemos implementar nosotros mismos la similitud del coseno como se muestra
+en similarity2.py y similarity3.py, pero hay que tener cuidado al extraer
 el vector. Si ponemos la opción quantize=False entonces simplemente:
 
 descriptor = embedder.embed(mpimage).embeddings[0].embedding
