@@ -4,6 +4,7 @@
 
 #https://github.com/googlesamples/mediapipe/blob/main/examples/face_detector/python/face_detector.ipynb
 
+
 from typing import Tuple, Union
 import math
 import cv2
@@ -83,6 +84,10 @@ from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
 
 VisionRunningMode = mp.tasks.vision.RunningMode
+
+from umucv.util import check_and_download
+
+check_and_download("detector.tflite","https://storage.googleapis.com/mediapipe-models/face_detector/blaze_face_short_range/float16/1/blaze_face_short_range.tflite")
 
 
 # STEP 2: Create an FaceDetector object.

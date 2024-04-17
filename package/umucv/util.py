@@ -12,6 +12,35 @@ import atexit
 atexit.register(cv.destroyAllWindows)
 
 
+def check_and_download(filename, url):
+    import os
+    import requests
+    if not os.path.exists(filename):
+        response = requests.get(url)
+        if response.status_code == 200:
+            with open(filename, 'wb') as f:
+                f.write(response.content)
+            print(f"Archivo '{filename}' descargado exitosamente.")
+        else:
+            print("No se pudo descargar el archivo.")
+            exit(0)
+
+
+
+import argparse
+parser = argparse.ArgumentParser()
+
+def parse():
+    from umucv.stream import sourceArgs
+    sourceArgs(parser)
+    args, rest = parser.parse_known_args()
+    assert len(rest)==0, 'unknown parameters: '+str(rest)
+    return args
+
+
+
+
+
 class mkParam:
     def __init__(self,wname,width=500):
         self.wname = wname

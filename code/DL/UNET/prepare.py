@@ -6,12 +6,13 @@ import sys
 import glob
 import matplotlib.pyplot as plt
 
-from argu import parser, parse
-
+import argparse
+parser = argparse.ArgumentParser()
 parser.add_argument('--examples', help='folder with the input images and masks', type=str, default='caras')
 parser.add_argument('--show', help="show a few cases and don't write the output file", action='store_true')
 parser.add_argument('--nomirror', help="don't add flipped examples", action='store_true')
-args = parse()
+args = parser.parse_args()
+
 
 def see_masked(img,mask):
     print(img.shape)
@@ -84,10 +85,14 @@ def expand(sample, N, size):
         for _ in range(N):
             x,y = (np.random.randn(2) * S + (xc,yc)).astype(int)
             samples.append( getSampleAt(x,y) )
+            #if MIRROR:
+            #    samples.append((np.fliplr(samples[-1][0]), np.fliplr(samples[-1][1])))
 
     for _ in range(N):
         x,y = np.random.randint([0,0],[W,H],2)
         samples.append( getSampleAt(x,y) )
+        #if MIRROR:
+        #    samples.append((np.fliplr(samples[-1][0]), np.fliplr(samples[-1][1])))
             
     return samples
 

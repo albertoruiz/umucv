@@ -20,17 +20,12 @@ import face_recognition
 import cv2 as cv
 import numpy as np
 import time
-from umucv.util import putText
+from umucv.util import putText, parser, parse
 from umucv.stream import autoStream, sourceArgs
 import glob
 
-import argparse, sys
-parser = argparse.ArgumentParser()
 parser.add_argument('--models', help='folder with models', type=str, default='gente')
-sourceArgs(parser)
-args, rest = parser.parse_known_args(sys.argv)
-assert len(rest)==1, 'unknown parameters: '+str(rest[1:])
-
+args = parse()
 
 
 def readrgb(filename):

@@ -1,3 +1,8 @@
+*.tflite
+*.keras
+*.pth
+*_hide
+
 data/shape*.dat
 images/texturas/simple
 images/texturas/curetgrey

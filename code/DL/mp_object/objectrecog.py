@@ -1,15 +1,20 @@
 #!/usr/bin/env python
 
-#https://github.com/googlesamples/mediapipe/blob/main/examples/object_detection/python/object_detector.ipynb
+# https://github.com/googlesamples/mediapipe/blob/main/examples/object_detection/python/object_detector.ipynb
+
 
 import cv2          as cv
 from umucv.stream import autoStream
+from umucv.util import check_and_download
 import math
 import numpy as np
 
 import mediapipe as mp
 from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
+
+check_and_download("efficientdet.tflite","https://storage.googleapis.com/mediapipe-models/object_detector/efficientdet_lite0/int8/1/efficientdet_lite0.tflite")
+
 
 # STEP 2: Create an ObjectDetector object.
 base_options = python.BaseOptions(model_asset_path='efficientdet.tflite')

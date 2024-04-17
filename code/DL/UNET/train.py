@@ -5,12 +5,13 @@ import matplotlib.pyplot as plt
 import sys
 import torch
 
-from argu import parser, parse
+import argparse
+parser = argparse.ArgumentParser()
 parser.add_argument('--samples', help='npz archive with the inputs and desired masks', type=str, default='caras.npz')
 parser.add_argument('--model', help="name of model to optimize", type=str, default=None)
 parser.add_argument('--epochs', help="number of epochs to run", type=int, default=20)
 parser.add_argument('--loss', help="target loss to stop", type=float, default=0)
-args = parse()
+args = parser.parse_args()
 
 samples = np.load(args.samples)
 Xr,Y = (samples[s] for s in ['x','y'])

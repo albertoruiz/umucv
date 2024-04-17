@@ -1,12 +1,14 @@
 #!/usr/bin/env python
 
 # https://github.com/googlesamples/mediapipe/blob/main/examples/interactive_segmentation/python/interactive_segmenter.ipynb
-# wget -O model.tflite -q https://storage.googleapis.com/mediapipe-models/interactive_segmenter/magic_touch/float32/1/magic_touch.tflite
 
 
 import cv2 as cv
 import matplotlib.pyplot as plt
 import numpy as np
+
+from umucv.stream import autoStream
+from umucv.util import check_and_download
 
 import mediapipe as mp
 
@@ -14,9 +16,8 @@ from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
 from mediapipe.tasks.python.components import containers
 
+check_and_download("model.tflite", "https://storage.googleapis.com/mediapipe-models/interactive_segmenter/magic_touch/float32/1/magic_touch.tflite")
 
-BG_COLOR = (192, 192, 192) # gray
-MASK_COLOR = (255, 255, 255) # white
 
 RegionOfInterest = vision.InteractiveSegmenterRegionOfInterest
 NormalizedKeypoint = containers.keypoint.NormalizedKeypoint
@@ -26,8 +27,11 @@ base_options = python.BaseOptions(model_asset_path='model.tflite')
 options = vision.ImageSegmenterOptions(base_options=base_options,
                                        output_category_mask=True)
 
-
 segmenter = vision.InteractiveSegmenter.create_from_options(options)
+
+BG_COLOR = (192, 192, 192) # gray
+MASK_COLOR = (255, 255, 255) # white
+
 
 point = [None]
 
@@ -38,13 +42,11 @@ def manejador(event, x, y, flags, param):
 cv.namedWindow("input")
 cv.setMouseCallback("input", manejador)
 
-from umucv.stream import autoStream
-from umucv.util import putText
 
 for key, frame in autoStream():
     H, W, _ = frame.shape
     rgb = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
-    mpimage = mpimage = mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb)
+    mpimage = mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb)
 
     if point[0] is not None:
         x,y = point[0]

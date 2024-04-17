@@ -2,13 +2,15 @@
 
 # https://github.com/googlesamples/mediapipe/blob/main/examples/image_embedder/python/image_embedder.ipynb
 
-# !wget -O embedder.tflite -q https://storage.googleapis.com/mediapipe-models/image_embedder/mobilenet_v3_small/float32/1/mobilenet_v3_small.tflite
 
 import cv2 as cv
 from umucv.stream import autoStream
+from umucv.util import check_and_download
 import mediapipe as mp
 from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
+
+check_and_download("embedder.tflite","https://storage.googleapis.com/mediapipe-models/image_embedder/mobilenet_v3_small/float32/1/mobilenet_v3_small.tflite")
 
 options = vision.ImageEmbedderOptions(
     base_options = python.BaseOptions(model_asset_path='embedder.tflite'),

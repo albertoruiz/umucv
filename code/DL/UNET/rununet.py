@@ -3,11 +3,10 @@
 import cv2 as cv
 import numpy as np
 from umucv.stream import autoStream
-from umucv.util import putText
+from umucv.util import putText, parser, parse
 import time
 import torch
 
-from argu import parser, parse
 parser.add_argument('--model', help="name of model to use", type=str, default='caras.torch')
 args = parse()
 

@@ -5,10 +5,11 @@ import matplotlib.pyplot as plt
 import sys
 import torch
 
-from argu import parser, parse
+import argparse
+parser = argparse.ArgumentParser()
 parser.add_argument('--samples', help='npz archive with the inputs and desired masks', type=str, default='caras.npz')
 parser.add_argument('--model', help="name of model to check", type=str, default='caras.torch')
-args = parse()
+args = parser.parse_args()
 
 samples = np.load(args.samples)
 Xr,Y = (samples[s] for s in ['x','y'])

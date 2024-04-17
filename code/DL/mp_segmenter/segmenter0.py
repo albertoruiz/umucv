@@ -1,16 +1,21 @@
 #!/usr/bin/env python
 
 # https://github.com/googlesamples/mediapipe/blob/main/examples/image_segmentation/python/image_segmentation.ipynb
-# !wget -O deeplabv3.tflite -q https://storage.googleapis.com/mediapipe-models/image_segmenter/deeplab_v3/float32/1/deeplab_v3.tflite
 
 import cv2 as cv
 import matplotlib.pyplot as plt
 import numpy as np
 
+from umucv.stream import autoStream
+from umucv.util import check_and_download
+
 import mediapipe as mp
 
 from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
+
+check_and_download("deeplabv3.tflite","https://storage.googleapis.com/mediapipe-models/image_segmenter/deeplab_v3/float32/1/deeplab_v3.tflite")
+
 
 # Create the options that will be used for ImageSegmenter
 base_options = python.BaseOptions(
@@ -21,8 +26,6 @@ options = vision.ImageSegmenterOptions(
     output_category_mask=True)
 
 segmenter = vision.ImageSegmenter.create_from_options(options)
-
-from umucv.stream import autoStream
 
 for key, frame in autoStream():
     rgb = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
