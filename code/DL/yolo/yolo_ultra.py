@@ -5,7 +5,7 @@ from ultralytics import YOLO
 # class labels:
 # https://github.com/ultralytics/ultralytics/blob/main/ultralytics/cfg/datasets/coco.yaml
 
-model = YOLO("yolov8n.pt")
+model = YOLO("yolov8n-seg.pt")
 
 import numpy as np
 import cv2 as cv
