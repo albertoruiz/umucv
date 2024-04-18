@@ -1,5 +1,0 @@
-ultralytics
-
-# importante: pip uninstall opencv-python opencv-contrib-python
-#             pip install opencv-contrib-python
-
