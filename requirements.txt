@@ -11,7 +11,10 @@ pyqtgraph==0.12.3
 pyqt5==5.14.1
 pyopengl
 
-dlib # http://robot.inf.um.es/material/va/dlib-19.24.2-cp311-cp311-linux_x86_64.whl
+# sudo apt install cmake build-essential
+dlib
+# http://robot.inf.um.es/material/va/dlib-19.24.2-cp311-cp311-linux_x86_64.whl
+
 face_recognition
 
 pymde
@@ -19,6 +22,8 @@ keras
 
 yt-dlp
 pyzbar
+
+# sudo apt install tesseract-ocr  tesseract-ocr-spa libtesseract-dev libleptonica-dev pkg-config 
 # tesserocr
 
 package/   # umucv

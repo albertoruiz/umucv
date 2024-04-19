@@ -2,6 +2,9 @@
 
 # OCR en vivo de una línea de texto marcada con un ROI
 
+# sudo apt install tesseract-ocr  tesseract-ocr-spa libtesseract-dev libleptonica-dev pkg-config 
+# pip install tesserocr
+
 
 # paquetes usuales
 import cv2 as cv
@@ -20,8 +23,9 @@ print(tesserocr.tesseract_version())  # print tesseract-ocr version
 print(tesserocr.get_languages())      # prints tessdata path and list of available languages
 
 # establecemos la configuración de trabajo
-tesseract = tesserocr.PyTessBaseAPI(lang='eng', psm=tesserocr.PSM.SINGLE_LINE, oem=tesserocr.OEM.DEFAULT)
+tesseract = tesserocr.PyTessBaseAPI(lang='eng', psm=tesserocr.PSM.SINGLE_LINE, oem=tesserocr.OEM.DEFAULT, path="/usr/share/tesseract-ocr/4.00/tessdata")
 # lo importante aquí es la opción de SINGLE_LINE (y que en el ROI haya una sola línea realmente)
+# el path es válido en mi versión de ubuntu, seguramente habrá que cambiarlo para otros sistemas
 
 # FIXME: no he conseguido que estas opciones funcionen
 # sería importante limitar los caracteres que pueden aparecer en el texto
