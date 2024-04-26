@@ -19,6 +19,7 @@ face_recognition
 
 pymde
 keras
+flax
 
 yt-dlp
 pyzbar
