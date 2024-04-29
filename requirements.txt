@@ -25,7 +25,7 @@ yt-dlp
 pyzbar
 
 # sudo apt install tesseract-ocr  tesseract-ocr-spa libtesseract-dev libleptonica-dev pkg-config 
-# tesserocr
+tesserocr
 
 package/   # umucv
 
