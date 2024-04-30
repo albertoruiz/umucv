@@ -3,16 +3,6 @@
 # estimación de pose a partir del marcador images/ref.png
 # En esta versión el objeto virtual se mueve.
 
-# pruébalo con el vídeo de siempre
-
-# ./pose2.py --dev=../../images/rot4.mjpg
-
-# con la imagen de prueba
-
-# ./pose2.py --dev=dir:../../images/marker.png
-
-# o con la webcam poniéndolo en el teléfono o el monitor.
-
 import cv2          as cv
 import numpy        as np
 

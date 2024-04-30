@@ -1,18 +1,8 @@
 #!/usr/bin/env python
 
 # estimación de pose a partir del marcador images/ref.png
-# Esta versión sustituye el código anterior por las mismas funciones
-# disponibles en umucv
-
-# pruébalo con el vídeo de siempre
-
-# ./pose1.py --dev=../../images/rot4.mjpg
-
-# con la imagen de prueba
-
-# ./pose1.py --dev=dir:../../images/marker.png
-
-# o con la webcam poniéndolo en el teléfono o el monitor.
+# Esta versión sustituye parte del código anterior por las
+# mismas funciones disponibles en umucv
 
 import cv2          as cv
 import numpy        as np

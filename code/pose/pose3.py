@@ -3,16 +3,6 @@
 # estimación de pose a partir del marcador images/ref.png
 # En esta versión añadimos una imagen fuera del plano
 
-# pruébalo con el vídeo de siempre
-
-# ./pose3.py --dev=../../images/rot4.mjpg
-
-# con la imagen de prueba
-
-# ./pose3.py --dev=dir:../../images/marker.png
-
-# o con la webcam poniéndolo en el teléfono o el monitor.
-
 import cv2          as cv
 import numpy        as np
 
@@ -102,9 +92,6 @@ for n, (key,frame) in enumerate(stream):
         H = cv.getPerspectiveTransform(src.astype(np.float32), dst.astype(np.float32))
         # la aplicamos encima de la imagen de cámara
         cv.warpPerspective(imvirt,H,size,frame,0,cv.BORDER_TRANSPARENT)
-        
-        # tenemos también la distancia la marcador
-        # print(np.linalg.norm(p.C))
 
 
     cv.imshow('source',frame)

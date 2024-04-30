@@ -10,6 +10,7 @@
 # con la imagen de prueba
 
 # ./pose0.py --dev=dir:../../images/marker.png
+# ./pose0.py --dev=dir:../../images/polis.png
 
 # o con la webcam poniéndolo en el teléfono o el monitor.
 
@@ -149,6 +150,9 @@ debug = False
 # empezamos el bucle de captura
 for key,frame in stream:
 
+    if key==ord("d"):
+        debug = not debug
+
     # extraemos los contornos como siempre, con la utilidad de umucv
     g = cv.cvtColor(frame,cv.COLOR_BGR2GRAY)
     cs = extractContours(g, minarea=5, reduprec=2)
@@ -172,7 +176,6 @@ for key,frame in stream:
             # (tantas como marcadores se detecten, lo normal
             # es que en la escena haya una o ninguna).
 
-    # es mejor usar el teclado cambiar la información que se muestra
     if debug:
         # dibujamos todos los contornos en morado
         cv.drawContours(frame,[c.astype(int) for c in cs], -1, (255,255,0), 1, lineType)
