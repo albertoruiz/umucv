@@ -3,16 +3,11 @@ interfaz C-Python
 
 Ejemplo básico de comunicación a través de arrays de numpy.
 
+La función se utiliza en el notebook cannyC.ipynb.
+
 Es una versión simplificada de un ejemplo completo cuyo
 interfaz incluye estructuras dinámicas (listas de Python,
 structs de C, etc.), preparado por el Prof. Pedro E. López
 de Teruel.
 
-
-Si copiamos cfuns y cfuns.py a la carpeta indicada en
-
-> python -m site --user-site
-
-el módulo cfuns.py quedará "instalado" y disponible
-desde cualquier directorio.
 
