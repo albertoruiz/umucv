@@ -1,0 +1,6 @@
+vispy
+jupyter_rfb
+pyqtgraph==0.12.3
+pyqt5==5.14.1
+pyopengl
+

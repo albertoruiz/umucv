@@ -146,7 +146,7 @@ def withKey(stream, t=1):
     for frame in stream:
         while True:
             key = cv.waitKey(t) & 0xFF
-            if key == 27:
+            if key == 27 or key == ord('q'):
                 exit = True
                 break
             if key == ord('.'):

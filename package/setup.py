@@ -5,12 +5,12 @@ with open("README.md", "r") as fh:
  
 setuptools.setup(
     name="umucv",
-    version="0.3",
+    version="0.4",
     license="BSD 3-Clause",
     author="Alberto Ruiz",
     author_email="aruiz@um.es",
     description="computer vision tools",
-    url="https://github.com/albertoruiz",
+    url="https://github.com/albertoruiz/umucv",
     platforms="any",
     keywords="vision image",
     classifiers=[

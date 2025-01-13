@@ -1,0 +1,10 @@
+mediapipe
+jupyterlab
+scikit-learn
+scikit-image
+sympy
+marimo
+ipympl
+
+# umucv
+package/
