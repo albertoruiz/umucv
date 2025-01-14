@@ -1,10 +1,14 @@
+pymde
+
+# pip install torch==2.2.2 torchvision==0.17.2
+
+keras
+
 # sudo apt install cmake build-essential
 dlib
 
 face_recognition
 
-pymde
-keras
 flax
 
 yt-dlp
@@ -12,7 +16,6 @@ pyzbar
 
 # sudo apt install tesseract-ocr  tesseract-ocr-spa libtesseract-dev libleptonica-dev pkg-config 
 tesserocr
-
 
 ######################################################################
 
