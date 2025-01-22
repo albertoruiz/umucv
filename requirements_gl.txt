@@ -4,3 +4,6 @@ pyqtgraph==0.12.3
 pyqt5==5.14.1
 pyopengl
 
+# wget http://es.archive.ubuntu.com/ubuntu/pool/main/libf/libffi/libffi7_3.3-4_amd64.deb
+# sudo dpkg -i libffi7_3.3-4_amd64.deb
+
