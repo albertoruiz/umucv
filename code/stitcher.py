@@ -41,7 +41,8 @@ for img_name in glob.glob(args.img):
      sys.exit(-1)
  imgs.append(img)
 
-stitcher = cv.createStitcher(args.mode)
+
+stitcher = cv.Stitcher_create(args.mode)
 status, pano = stitcher.stitch(imgs)
 
 if status != cv.Stitcher_OK:
