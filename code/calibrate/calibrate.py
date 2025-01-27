@@ -2,11 +2,7 @@
 
 import numpy as np
 import cv2   as cv
-
-import sys
-from glob import glob
-
-files = glob(sys.argv[1])
+from umucv.stream import autoStream
 
 square_size = 1
 pattern_size = (9, 6)
@@ -16,15 +12,10 @@ pattern_points *= square_size
 
 obj_points = []
 img_points = []
-h, w = 0, 0
-for fn in files:
-    print('processing %s...' % fn)
-    img = cv.imread(fn, cv.IMREAD_GRAYSCALE)
-    if img is None:
-      print("Failed to load", fn)
-      continue
 
-    h, w = img.shape[:2]
+for _, frame in autoStream():
+    img = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
+    h, w = img.shape
     found, corners = cv.findChessboardCorners(img, pattern_size)
     if found:
         term = ( cv.TERM_CRITERIA_EPS + cv.TERM_CRITERIA_COUNT, 30, 0.1 )
@@ -37,6 +28,7 @@ for fn in files:
 
     print('ok')
 
+print(len(obj_points))
 rms, camera_matrix, dist_coefs, rvecs, tvecs = cv.calibrateCamera(obj_points, img_points, (w, h), None, None)
 
 print("RMS:", rms)

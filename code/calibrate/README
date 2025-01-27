@@ -1,19 +1,51 @@
-# 1) captura con tu cámara varias imágenes del patrón "pattern.png" y guárdalas en una carpeta
-# (puedes ver las que he tomado con mi cámara en la carpeta mylogitech).
-#
-# Es importante que muchas de ellas tengan suficiente inclinación y se aprecie el efecto de
-# perspectiva, las imágenes "frontales" no aportan mucha información.
+PROCEDIMIENTO DE CALIBRACIÓN
+----------------------------
+
+1) Captura con tu cámara varias imágenes del patrón "pattern.png" y guárdalas en una carpeta
+  (puedes ver como ejemplo las que he tomado con mi cámara en la carpeta "mylogitech").
+
+  Es necesario que muchas de ellas tengan suficiente inclinación y se aprecie
+  claramente el efecto de perspectiva. Las imágenes "frontales" no aportan
+  mucha información.
+
+  (Puedes usar stream.py y pulsar 's' para grabar cómodamente las imágenes deseadas.)
 
 
-# 2) ejecuta el programa calibrate.py con la ruta entre comillas:
+2) Ejecuta el programa calibrate.py indicando la ubicación de las imágenes capturadas.
+
+   > ./calibrate.py --dev glob:mylogitech/*.png
+
+  Si el proceso tiene éxito el programa devolverá el error de ajuste (RMS),
+  la matriz de calibración de cámara K, y los coeficientes de distorsión radial.
+  Estos parámetros se guardan en un archivo de texto.
+  
+
+3) Podemos verificar el resultado viendo cómo se proyectan los puntos ideales sobre
+   la imagen utilizando los parámetros de calibración del archivo anterior:
+
+    ./verify.py --dev dir:mylogitech/*.png
 
 
-./calibrate.py  "mylogitech/*.png"
+4) El siguiente script muestra el resultado de corregir la distorsión radial:
+
+    ./undistort1.py --dev dir:mylogitech/*.png
+ 
+    La tecla 'u' cambia entre la imagen original y la corregida. (Esta cámara tiene
+    poca distorsión radial y el cambio se aprecia poco.)
+
+    Tenemos otra versión que también cambia la matriz de calibración a un valor deseado
+    diferente:
+ 
+    ./undistort2.py --dev dir:mylogitech/*.png
 
 
-El programa devolverá el error de ajuste (RMS), la matriz de calibración de cámara K, y los
-coeficientes de distorsión radial.
+5) Para el capítulo de visión estéreo, podemos elegir dos imágenes pulsando '1' y '2',
+   y comprobar interactivamente la reconstrucción 3D de la plantilla de calibración:
+   
+    ./triangulate.py --dev dir:mylogitech/*.png
 
+
+NOTA
 
 En imágenes de alta resolución el detector de esquinas puede tener dificultad para
 encontrar el patrón de calibración. En este caso una solución es reescalar las imágenes
@@ -21,5 +53,8 @@ encontrar el patrón de calibración. En este caso una solución es reescalar la
 
 convert -resize 20% *.jpg r.png
 
-Y después reajustar los parámetros encontrados. En este caso, f -> f*5
+Y después reajustar los parámetros encontrados. En este caso, f --> f*5
+
+(También se puede usar la opción --resize de los scripts con autoStream, aunque por ahora
+no admite tamaños expresados como porcentaje.)
 
