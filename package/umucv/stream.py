@@ -1,7 +1,7 @@
 import numpy as np
 import cv2   as cv
 from threading import Thread
-from umucv.util import Clock, putText
+from umucv.util import Clock, putText, findParent
 import datetime
 import time
 import argparse
@@ -187,8 +187,9 @@ def sourceArgs(p):
 
 
 def readAlias():
+    aliasfile = findParent('alias.txt')
     try:
-        with open('alias.txt', 'r') as f:
+        with open(aliasfile, 'r') as f:
             x = f.read()
     except:
         return dict()

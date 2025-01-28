@@ -12,6 +12,23 @@ import atexit
 atexit.register(cv.destroyAllWindows)
 
 
+def findParent(name):
+    import os
+    current_dir = os.getcwd()
+    while True:
+        filepath = os.path.join(current_dir, name)
+        if os.path.exists(filepath):
+            return filepath
+
+        parent_dir = os.path.dirname(current_dir)
+        if parent_dir == current_dir:  # Root directory reached
+            break
+        current_dir = parent_dir
+
+    return None
+
+
+
 def check_and_download(filename, url):
     import os
     import requests

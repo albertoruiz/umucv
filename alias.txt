@@ -6,6 +6,6 @@ voley = http://robot.inf.um.es/material/va/voley.webm
 
 phone = rtsp://192.168.1.135:5540/ch0
 
-tv = http://america-crtvg.flumotion.com/playlist.m3u8
+tv1 = https://ztnr.rtve.es/ztnr/1688877.m3u8
 
-
+tv2 = https://ztnr.rtve.es/ztnr/1688885.m3u8
