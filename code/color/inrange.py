@@ -10,8 +10,8 @@
 # 4) Realizar la misma separación mediante extracción de
 #    contornos.
 
-# python inrange.py --dev=dir:../images/naranjas/*.jpg --resize=0x400
-# python inrange.py --dev=dir:../images/demos/fruits.png
+# python inrange.py --dev=dir:../../images/naranjas/*.jpg --resize=0x400
+# python inrange.py --dev=dir:../../images/demos/fruits.png
 
 import cv2 as cv
 import numpy as np

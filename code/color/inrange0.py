@@ -8,8 +8,8 @@
 
 # (En la versión completa inrange.py se trabaja con las regiones obtenidas)
 
-# python inrange0.py --dev=dir:../images/naranjas/*.jpg --resize=0x400
-# python inrange0.py --dev=dir:../images/demos/fruits.png
+# python inrange0.py --dev=dir:../../images/naranjas/*.jpg --resize=0x400
+# python inrange0.py --dev=dir:../../images/demos/fruits.png
 
 import cv2 as cv
 import numpy as np
