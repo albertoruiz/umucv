@@ -179,11 +179,31 @@ def isize(s):
     return (int(s[:k]),int(s[k+1:]))
 
 def sourceArgs(p):
-    p.add_argument('--dev', type=str, default='0', help='image source')
+    p.add_argument('--dev', type=str, default='None', help='image source')
     p.add_argument('--size', help='desired image size', type=isize, default=None)
     p.add_argument('--resize', help='force image size', type=isize, default=None)
     p.add_argument('--step', help='frame by frame', action='store_true')
     p.add_argument('--loop', help='repeat video forever', action='store_true')
+
+
+import os
+import re
+
+def replace_env_variables(text: str) -> str:
+    def replacer(match):
+        var_name = match.group(1)
+        value = os.getenv(var_name)
+        if value is None:
+            print(f"Warning: Environment variable '{var_name}' not found.")
+            return f"${var_name}"
+        return value
+    
+    return re.sub(r'\$(\w+)', replacer, text)
+
+# Example usage:
+#input_text = "Path: $HOME, User: $USER, Missing: $UNKNOWN"
+#print(replace_env_variables(input_text))
+
 
 
 def readAlias():
@@ -192,12 +212,14 @@ def readAlias():
         with open(aliasfile, 'r') as f:
             x = f.read()
     except:
-        return dict()
+        return {'default':'0'}
     lines = [ l.strip() for l in x.split('\n')]
     lines = [ l for l in lines if len(l)>0 and l[0] != '#' ]
     D = {k.strip(): v.strip() for k,v in map(lambda l: l.split('=',1), lines) }
     for k in D.keys():
-        D[k] = D[k].format(**D)
+        D[k] = replace_env_variables(D[k]).format(**D)
+    if 'default' not in D:
+        D['default'] = '0'
     return D
 
 
@@ -237,8 +259,13 @@ def autoStream(transf = lambda x: x):
     args, _ = parser.parse_known_args()
     
     D = readAlias()
-    dev = D.get(args.dev, args.dev)
+    dev = D.get(args.dev, D['default'])
 
+    if ' ' in dev:
+        dev, other = dev.split(' ',2)    
+        other = other.split(' ')
+        args, _ = parser.parse_known_args(other + sys.argv)
+    
     resize = mkResize(args)
     
     stream = transf( map(resize, mkStream(args.size, dev, args.loop) ) )

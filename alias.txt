@@ -1,11 +1,21 @@
+rotar = $HOME/repos/umucv/images/rot4.mjpg
+
 carretera = https://iihrwc02.iowa.uiowa.edu/axis-cgi/mjpg/video.cgi?resolution=704x480
 
 lamanga = https://webcam.lamanga.travel/hls/test.m3u8
 
-voley = http://robot.inf.um.es/material/va/voley.webm
+voley = https://umubox.um.es/index.php/s/lggX6tNBHoGMEUR/download --resize=640x0
 
-phone = rtsp://192.168.1.135:5540/ch0
+IP1=132
+phone = rtsp://192.168.1.{IP1}:5540/ch0
+
+IP2=a.b
+phoneuni = rtsp://155.54.{IP2}:5540/ch0
 
 tv1 = https://ztnr.rtve.es/ztnr/1688877.m3u8
 
 tv2 = https://ztnr.rtve.es/ztnr/1688885.m3u8
+
+#default = {tv1} --resize=640x0
+#default = {phone}
+
