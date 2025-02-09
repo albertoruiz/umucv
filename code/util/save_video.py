@@ -8,11 +8,11 @@ import cv2 as cv
 from umucv.stream import autoStream
 from umucv.util import Video
 
-# Los argumentos por omisión son video h264 y fps automático
-# video = Video()
+# Los argumentos por omisión son video mp4 y fps automático
+video = Video()
 
 # Si no está disponible el codec usamos formato mjpg
-video = Video(fps=15, codec="MJPG",ext="avi")
+# video = Video(fps=15, codec="MJPG",ext="avi")
 
 # Si queremos que empiece a grabar desde el primer frame
 # video.ON = True
@@ -27,9 +27,8 @@ for key,frame in autoStream():
     # y debe estar en formato BGR
     video.write(frame, key, ord('v'))
 
-cv.destroyAllWindows()
-video.release()
 
+video.release()
 
 # Puedes usar simplemente
 # video.write(frame)

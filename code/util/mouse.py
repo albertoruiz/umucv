@@ -13,6 +13,3 @@ cv.setMouseCallback("webcam", manejador)
 
 for key, frame in autoStream():
     cv.imshow('webcam',frame)
-
-cv.destroyAllWindows()
-

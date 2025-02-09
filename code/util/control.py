@@ -30,8 +30,7 @@ cv.createTrackbar("exposure", "control", 250, 2047, exposure)
 
 
 while True:
-    if cv.waitKey(100) & 0xFF == 27:
+    key = cv.waitKey(100) & 0xFF
+    if key == 27 or key == ord('q'):
         break
-
-cv.destroyAllWindows()
 

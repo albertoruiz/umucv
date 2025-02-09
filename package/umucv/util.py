@@ -201,7 +201,7 @@ class zoomWindow:
 
 
 class Video:
-    def __init__(self, ext='mp4', fourcc=None, codec='X264', fps=None):
+    def __init__(self, ext='mp4', fourcc=None, codec='mp4v', fps=None):
         self.ext = ext
         self.codec = codec
         if fourcc == None:

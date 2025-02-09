@@ -5,7 +5,7 @@ import numpy as np
 from umucv.stream import autoStream, mkStream
 
 import skimage.io as io
-path = "http://robot.inf.um.es/material/va/images/"
+path = "https://raw.githubusercontent.com/albertoruiz/umucv/master/images/"
 background = io.imread(path+"palmeras.jpg")
 background = cv.cvtColor(background, cv.COLOR_RGB2BGR)
 

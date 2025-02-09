@@ -8,17 +8,18 @@
 # En ambos casos mask debe tener los mismos canales que la imagen
 # (1 en monocromo y 3 en color)
 
+# Si no es así, podemos usar np.expand_dims
 
 import cv2 as cv
 import numpy as np
 from umucv.stream import autoStream
 
-polygon = np.array([(50,70), (120,90), (60,200)])
 
 
 for key, frame in autoStream():        
     cv.imshow('input',frame)
-    
+
+    polygon = np.array([(50,70), (120,90), (60,200)])
     mask = np.zeros_like(frame)
     todos = -1
     on = (1,1,1)
@@ -33,3 +34,11 @@ for key, frame in autoStream():
     np.copyto(result2, frame, where= mask != 1)
     cv.imshow('result2',result2)
 
+    h,w,_= frame.shape
+    r = np.arange(h).reshape(-1,1)
+    c = np.arange(w).reshape(1,-1)
+    
+    other_mask = (r+c>100) & (r+c < 200)
+    result3 = np.expand_dims(other_mask,2) * frame
+    cv.imshow("result3", result3)
+    

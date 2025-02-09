@@ -6,7 +6,6 @@ from collections import deque
 import numpy as np
 from umucv.util import putText
 
-
 points = deque(maxlen=2)
 
 def fun(event, x, y, flags, param):
@@ -26,6 +25,3 @@ for key, frame in autoStream():
         putText(frame,f'{d:.1f} pix',c)
 
     cv.imshow('webcam',frame)
-    
-cv.destroyAllWindows()
-

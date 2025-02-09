@@ -34,6 +34,3 @@ for key, frame in autoStream():
     binary = logica.astype(float)
     #print(binary)
     cv.imshow('binary', binary )
-
-cv.destroyAllWindows()
-
