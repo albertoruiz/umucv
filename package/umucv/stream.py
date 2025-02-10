@@ -179,7 +179,7 @@ def isize(s):
     return (int(s[:k]),int(s[k+1:]))
 
 def sourceArgs(p):
-    p.add_argument('--dev', type=str, default='None', help='image source')
+    p.add_argument('--dev', type=str, default='default', help='image source')
     p.add_argument('--size', help='desired image size', type=isize, default=None)
     p.add_argument('--resize', help='force image size', type=isize, default=None)
     p.add_argument('--step', help='frame by frame', action='store_true')
@@ -220,7 +220,6 @@ def readAlias():
         D[k] = replace_env_variables(D[k]).format(**D)
     if 'default' not in D:
         D['default'] = '0'
-    D[None] = D['default']
     return D
 
 
@@ -260,7 +259,10 @@ def autoStream(transf = lambda x: x):
     args, _ = parser.parse_known_args()
     
     D = readAlias()
-    dev = D.get(args.dev, D[None])
+    #print(D)
+    
+    dev = D.get(args.dev, args.dev)
+    #print(args.dev, dev)
 
     if ' ' in dev:
         dev, other = dev.split(' ',2)    
