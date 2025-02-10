@@ -220,6 +220,7 @@ def readAlias():
         D[k] = replace_env_variables(D[k]).format(**D)
     if 'default' not in D:
         D['default'] = '0'
+    D[None] = D['default']
     return D
 
 
@@ -259,7 +260,7 @@ def autoStream(transf = lambda x: x):
     args, _ = parser.parse_known_args()
     
     D = readAlias()
-    dev = D.get(args.dev, D['default'])
+    dev = D.get(args.dev, D[None])
 
     if ' ' in dev:
         dev, other = dev.split(' ',2)    
