@@ -5,7 +5,7 @@ import numpy as np
 import time
 
 # Load the model from the file...
-dinov2_vitb14_model = torch.hub.load('facebookresearch/dinov2', 'dinov2_vitb14')
+dinov2_vitb14_model = torch.hub.load('facebookresearch/dinov2', 'dinov2_vitb14_reg')
 # ... and move to GPU:
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 dinov2_vitb14_model.to(device)
