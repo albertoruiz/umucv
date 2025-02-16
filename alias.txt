@@ -1,8 +1,9 @@
-rotar = $HOME/repos/umucv/images/rot4.mjpg
+rotar = $HOME/repos/umucv/images/rot4.mjpg --loop
 
 carretera = https://iihrwc02.iowa.uiowa.edu/axis-cgi/mjpg/video.cgi?resolution=704x480
 
 lamanga = https://webcam.lamanga.travel/hls/test.m3u8
+playa = {lamanga} --resize=800x0
 
 voley = https://umubox.um.es/index.php/s/lggX6tNBHoGMEUR/download --resize=640x0
 

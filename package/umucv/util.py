@@ -55,25 +55,36 @@ def parse():
     return args
 
 
+def read_arguments(your_arguments):
+    import argparse, sys
+    from umucv.stream import sourceArgs
+    parser = argparse.ArgumentParser()
+    sourceArgs(parser)
+    your_arguments(parser)
+    args, rest = parser.parse_known_args(sys.argv)
+    assert len(rest)==1, 'unknown parameters: '+str(rest[1:])
+    return args
 
 
 
-class mkParam:
-    def __init__(self,wname,width=500):
-        self.wname = wname
-        cv.namedWindow(wname,cv.WINDOW_NORMAL)
-        cv.resizeWindow(wname,width,5)
+def Slider(name, window, value, start=0, stop=100, step=1):
+    from types import SimpleNamespace
+    values = list(map(type(step), np.arange(start, stop+step, step)))
+    k0 = 0
+    for k,v in enumerate(values):
+        if v>=value:
+          k0=k
+          break
     
-    def supdate(self,pname,v):
-            exec('self.{}={}'.format(pname,v))
-    
-    def addParam(self,pname,v,vmax,action=None):
-        def update(v):
-            self.supdate(pname,v)
-        if not action:
-            action = update
-        cv.createTrackbar(pname, self.wname, v, vmax, action)
-        action(v)
+    def change(L,k):
+        L.value = values[k]
+
+    cv.namedWindow(window)
+    P = SimpleNamespace()
+    P.value = value
+    cv.createTrackbar(name, window, k0, len(values)-1, lambda v: change(P,v) )
+    return P
+
 
 
 def putText(img, string, orig=(5,16), color=(255,255,255), div=2, scale=1, thickness=1):
