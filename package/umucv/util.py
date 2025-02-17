@@ -96,7 +96,7 @@ def putText(img, string, orig=(5,16), color=(255,255,255), div=2, scale=1, thick
 
 
 
-class ROI2:
+class ROI:
     """
     if self.roi:
         [x1,y1,x2,y2] = self.roi
@@ -146,29 +146,6 @@ class ROI2:
                 
         cv.setMouseCallback(window, fun)
 
-
-
-class ROI:
-    def __init__(self,window):
-        self.roi = []
-        self.DOWN = False
-        def poly():
-            x1,y1,x2,y2 = self.roi
-            self.box = np.array([[x1-1,y1-1],[x1-1,y2],[x2,y2],[x2,y1-1]])
-        def fun(event, x, y, flags, param):
-            if   event == cv.EVENT_LBUTTONDOWN:
-                self.roi = [x,y,x+1,y+1]
-                poly()
-                self.DOWN = True
-            elif event == cv.EVENT_LBUTTONUP:
-                self.DOWN = False
-            elif self.DOWN:
-                x1,y1,_,_ = self.roi 
-                x2 = x+1
-                y2 = y+1
-                self.roi = [min(x1,x2),min(y1,y2),max(x1,x2),max(y1,y2)]
-                poly()
-        cv.setMouseCallback(window, fun)
 
 
 class zoomWindow:
