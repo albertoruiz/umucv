@@ -143,7 +143,8 @@ class ROI:
                         y2 = y
                         self.yt = True
                 self.roi = [x1,y1,x2,y2]
-                
+        
+        cv.namedWindow(window)
         cv.setMouseCallback(window, fun)
 
 
@@ -506,3 +507,10 @@ def ellip3d(mc):
     tran = np.diag(np.sqrt(abs(l))) @ r.T
     return (np.array([x_0.flatten(),y_0.flatten(),z_0.flatten()]).T @ tran + m).T.reshape(3,len(u),len(v))
 
+
+##########################################################################
+
+def resize_height(img, nh):
+    h,w = img.shape[:2]
+    nw = round(nh*w/h)
+    return cv.resize(img,(nw,nh))
