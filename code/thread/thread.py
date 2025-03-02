@@ -10,27 +10,30 @@
 import cv2   as cv
 from threading import Thread
 from umucv.stream import autoStream
+import numpy as np
+import time
+
 
 def heavywork(img, n):
     r = img
     for _ in range(n):
         r = cv.medianBlur(r, 17)
-    return r
+    return img, r
 
 
-frame = None
-result = None
-
-goon = True
+frame      = None
+result     = None
+goon       = True
 
 def in_thread():
     global result
+    while frame is None:
+        time.sleep(0.01)
     while goon:
-        if frame is not None:
-            print('work starts')
-            result = heavywork(frame,20)
-            print('work ends')
-            # cv.imshow('otherwork',result)  # Aquí NOOO
+        print('work starts')
+        result = heavywork(frame, 20)
+        print('work ends')
+        # cv.imshow('otherwork',result)  # Aquí NOOO
 
 t = Thread(target=in_thread, args=())
 t.start()
@@ -42,7 +45,7 @@ for key, frame in autoStream():
     cv.imshow('input',frame)
     print('capture')
     if result is not None:
-        cv.imshow('work',result)
+        cv.imshow('work',np.hstack(result))
         print('display')
         result = None
 

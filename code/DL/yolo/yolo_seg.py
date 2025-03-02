@@ -2,7 +2,7 @@
 
 from ultralytics import YOLO
 
-model = YOLO('yolov8n-seg.pt') 
+model = YOLO('yolo11n-seg.pt')
 
 import numpy as np
 import cv2 as cv
@@ -12,13 +12,13 @@ for key,frame in autoStream():
     rgb = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
 
     [result] = model(rgb)
-    
+
     if result.masks is not None:
         mask = 0
         for m in result.masks.data:
             mask += np.expand_dims(m.cpu().numpy(),-1)*[[[1,1,1]]]
-        
-        print(mask.shape, frame.shape)
+
+        #print(mask.shape, frame.shape)
         cv.imshow('mask',mask)
 
         h,w,_ = frame.shape

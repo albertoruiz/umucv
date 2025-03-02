@@ -20,7 +20,7 @@ def solve(imgs, desp):
     print(X.shape)
     Y = np.vstack(desp)
     print(Y.shape)
-    sol = np.linalg.lstsq(homog(X),Y)
+    sol = np.linalg.lstsq(homog(X),Y, rcond=None)
     W = sol[0]
     print(W.shape)
     print(sol[1])
@@ -41,7 +41,7 @@ def fun(event, x, y, flags, param):
         POS = (x,y)
 
 
-cv.namedWindow("input")
+cv.namedWindow("input", cv.WINDOW_AUTOSIZE | cv.WINDOW_GUI_NORMAL )
 cv.setMouseCallback("input", fun)
 
 for key,frame in autoStream():
