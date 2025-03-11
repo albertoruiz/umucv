@@ -7,6 +7,8 @@ playa = {lamanga} --resize=800x0
 
 voley = https://umubox.um.es/index.php/s/lggX6tNBHoGMEUR/download --resize=640x0
 
+shibuya = https://umubox.um.es/index.php/s/1PXYmUrPplpgnS2/download
+
 IP1=132
 phone = rtsp://192.168.1.{IP1}:5540/ch0
 

@@ -4,17 +4,16 @@
 
 import cv2 as cv
 import numpy as np
-from umucv.stream import autoStream, sourceArgs
-from umucv.util import putText
+from umucv.stream import autoStream
+from umucv.util import putText, read_arguments
 import time
 import argparse
 
-# mostramos la forma de añadir argumentos en la línea de órdenes
-parser = argparse.ArgumentParser()
-parser.add_argument('--quality', type=float, default=0.1, help='intensidad de los puntos (0-1)')
-sourceArgs(parser)
-args = parser.parse_args()
-#args, otros = parser.parse_known_args()
+# recordamos la forma de añadir argumentos en la línea de órdenes
+def my_arguments(parser):
+    parser.add_argument('--quality', type=float, default=0.1, help='intensidad de los puntos (0-1)')
+
+args = read_arguments(my_arguments)
 
 
 # parámetros del detector
