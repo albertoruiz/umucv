@@ -22,6 +22,7 @@ C = Slider("conf","YOLO 11 Tracking",0.5,0,1,0.01)
 
 def my_arguments(parser):
     parser.add_argument('--clases', help='tipo de objeto (default = person)', type=str, default='person')
+    parser.add_argument('--debug', help='show useful information', action='store_true')
 args = read_arguments(my_arguments)
 
 selected = args.clases.split(',')
@@ -35,16 +36,21 @@ track_history = defaultdict(lambda: deque(maxlen=50))
 for key, frame in autoStream():
 
     rgb = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
-    [results] = model.track(rgb, persist=True, verbose=False)
+    [results] = model.track(rgb, persist=True, verbose=args.debug)
+    if args.debug:
+        cv.imshow("debug", results.plot())
+        continue
+
 
     # Get the boxes and track IDs
     boxes = results.boxes.xywh.cpu()
-    track_ids = results.boxes.id.int().cpu().tolist()
-    confs     = results.boxes.conf.cpu().tolist()
-    clases    = results.boxes.cls.int().cpu().tolist()
+    if results.boxes.id is not None:
+        track_ids = results.boxes.id.int().cpu().tolist()
+        confs     = results.boxes.conf.cpu().tolist()
+        clases    = results.boxes.cls.int().cpu().tolist()
+    else:
+        track_ids = []
 
-    # Visualize the results on the frame
-    #annotated_frame = results[0].plot()
 
     # Plot the tracks
     for box, track_id, conf, cls in zip(boxes, track_ids, confs, clases):

@@ -8,6 +8,7 @@ import cv2 as cv
 import numpy as np
 from umucv.stream import autoStream, sourceArgs
 from umucv.util import putText
+from collections import deque
 import time
 
 tracks = []
@@ -26,10 +27,10 @@ lk_params = dict( winSize  = (15, 15),
 
 for n, (key, frame) in enumerate(autoStream()):
     gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
-    
+
     t0 = time.time()
     if tracks:
-        
+
         # el criterio para considerar bueno un punto siguiente es que si lo proyectamos
         # hacia el pasado, vuelva muy cerca del punto incial, es decir:
         # "back-tracking for match verification between frames"
@@ -38,26 +39,24 @@ for n, (key, frame) in enumerate(autoStream()):
         p0r, _, _ =  cv.calcOpticalFlowPyrLK(gray, prevgray, p1, None, **lk_params)
         d = abs(p0-p0r).reshape(-1,2).max(axis=1)
         good = d < 1
-        
+
         new_tracks = []
-        for t, (x,y), ok in zip(tracks, p1.reshape(-1,2), good):
+        for t, point, ok in zip(tracks, p1.reshape(-1,2), good):
             if not ok:
                 continue
-            t.append( [x,y] )
-            if len(t) > track_len:
-                del t[0]
+            t.append( point )
             new_tracks.append(t)
 
         tracks = new_tracks
 
         cv.polylines(frame, [ np.int32(t) for t in tracks ], isClosed=False, color=(0,0,255))
         for t in tracks:
-            x,y = np.int32(t[-1])
-            cv.circle(frame, (x, y), 2, (0, 0, 255), -1)
+            point = np.int32(t[-1])
+            cv.circle(frame, center=point, radius=2, color=(0, 0, 255), thickness=-1)
 
-    t1 = time.time()    
+    t1 = time.time()
 
-    if n % detect_interval == 0:        
+    if n % detect_interval == 0:
         # Creamos una máscara para indicar al detector de puntos nuevos las zona
         # permitida, que es toda la imagen, quitando círculos alrededor de los puntos
         # existentes (los últimos de las trayectorias).
@@ -68,8 +67,8 @@ for n, (key, frame) in enumerate(autoStream()):
         #cv.imshow("mask",mask)
         corners = cv.goodFeaturesToTrack(gray, mask=mask, **corners_params)
         if corners is not None:
-            for [(x, y)] in np.float32(corners):
-                tracks.append( [  [ x,y ]  ] )
+            for [pt] in np.float32(corners):
+                tracks.append( deque([pt], maxlen=track_len) )
 
     putText(frame, f'{len(tracks)} corners, {(t1-t0)*1000:.0f}ms' )
     cv.imshow('input', frame)
