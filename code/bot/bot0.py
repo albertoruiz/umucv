@@ -9,7 +9,7 @@
 # IDBot te da tu id de usuario
 
 # Almacenamos estos valores en token.env y se leen como variables de entorno
-# ** Importante: no subir el fichero .env al repositorio si es publico  
+# IMPORTANTE: no subir el fichero .env al repositorio si es publico  
 # Lo más recomendable es añadir la excepcion a gitignore
 
 from telegram.ext import Updater, CommandHandler
@@ -19,10 +19,10 @@ from os import environ
 from dotenv import load_dotenv
 load_dotenv('token.env')
 
-MI_ID = environ.get('USER_ID', None)
-UPDATER = Updater(environ.get('TOKEN'), use_context=True)
+MI_ID = environ['USER_ID']
+UPDATER = Updater(environ['TOKEN'], use_context=True)
 dispatcher = UPDATER.dispatcher
-Bot: Bot = UPDATER.bot
+Bot = UPDATER.bot
 
-Bot.send_message(MI_ID, f'Hey, I am Online')
+Bot.send_message(MI_ID, f'Hey, I am online')
 

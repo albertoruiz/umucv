@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-# responde a comandos
+# responde a comandos: /hola /info
 
 from telegram.ext import Updater, CommandHandler
 from telegram import Update, Bot
@@ -9,10 +9,10 @@ from os import environ
 from dotenv import load_dotenv
 load_dotenv('token.env')
 
-MI_ID = environ.get('USER_ID', None)
-UPDATER = Updater(environ.get('TOKEN'), use_context=True)
+MI_ID = environ['USER_ID']
+UPDATER = Updater(environ['TOKEN'], use_context=True)
 dispatcher = UPDATER.dispatcher
-Bot: Bot = UPDATER.bot
+Bot = UPDATER.bot
 
 
 def hola(update, context):

@@ -11,24 +11,13 @@ from flask import Flask, send_file
 from PIL import Image
 import cv2 as cv
 
-if False:
-    cap = cv.VideoCapture(0)
-    def getframe():
-        ret, frame = cap.read()
-        return cv.cvtColor(frame, cv.COLOR_BGR2RGB)
-elif False:
-    from umucv.stream import autoStream
-    stream = autoStream()
-    def getframe():
-        _,frame = next(stream)
-        return cv.cvtColor(frame, cv.COLOR_BGR2RGB)
-else:
-    # captura asíncrona en un hilo
-    # para devolver siempre el frame más reciente
-    from umucv.stream import Camera
-    cam = Camera()
-    def getframe():
-        return cv.cvtColor(cam.frame, cv.COLOR_BGR2RGB)
+
+# captura asíncrona en un hilo
+# para devolver siempre el frame más reciente
+from umucv.stream import Camera
+cam = Camera()
+def getframe():
+    return cv.cvtColor(cam.frame, cv.COLOR_BGR2RGB)
 
 
 def send_image(imgRGB):
