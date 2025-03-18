@@ -22,7 +22,7 @@ for key, frame in autoStream():
     keypoints , _ = sift.detectAndCompute(frame, mask=None)
     t1 = time.time()
 
-    putText(frame, '{} keypoints  {:.0f} ms'.format(len(keypoints), 1000*(t1-t0)))
+    putText(frame, f'{len(keypoints)} keypoints  {1000*(t1-t0):.0f} ms')
 
     # dibujamos los puntos encontrados, con un círculo que indica su tamaño y un radio
     # que indica su orientación.

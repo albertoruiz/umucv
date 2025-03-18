@@ -2,6 +2,7 @@
 
 import cv2 as cv
 from umucv.stream import autoStream
+from umucv.util import putText, Slider
 
 def hessian(x):
     gxx = cv.Sobel(x,-1,2,0)
@@ -9,9 +10,8 @@ def hessian(x):
     gxy = cv.Sobel(x,-1,1,1)
     return gxx*gyy-gxy**2
 
-cv.namedWindow("original")
-cv.createTrackbar("sigma","original",40,100, lambda _: ())
-cv.createTrackbar("scale","original",500,1000, lambda _: ())
+s_sigma = Slider("sigma","debug",40,0,100,1)
+s_scale = Slider("scale","debug",50,0,100,1)
 
 SHOW = 0
 
@@ -19,14 +19,15 @@ for key, frame in autoStream():
     if key == ord('+'):
         SHOW = (SHOW+1)%3
 
-    sigma = 1.05**cv.getTrackbarPos('sigma','original')
-    scale = cv.getTrackbarPos('scale','original') / 10
-    
     g = cv.cvtColor(frame, cv.COLOR_BGR2GRAY).astype(float)/255
-    s = cv.GaussianBlur(g,(-1,-1),sigma) if sigma>0 else g
+
+    sigma = 1.05**s_sigma.value
+    s = cv.GaussianBlur(g,(0,0),sigma)
     
     h = (sigma**4/16) * hessian(s)
     
+    scale = s_scale.value
     cv.imshow("debug",[lambda:0.5+scale*h, lambda:scale*abs(h), lambda:s][SHOW]()) 
+    putText(frame,f"sigma = {sigma:.2f}")
     cv.imshow("original",frame)
 

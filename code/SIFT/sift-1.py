@@ -6,7 +6,9 @@ import cv2 as cv
 import time
 
 from umucv.stream import autoStream
-from umucv.util import putText
+from umucv.util import putText, Slider
+
+threshold = Slider("max distance", "SIFT", 20, 0, 100, 1)
 
 sift = cv.SIFT_create(nfeatures=500)
 
@@ -46,7 +48,8 @@ for key, frame in autoStream():
         t3 = time.time()
         
         # sacamos la mejor (y en este caso única coincidencia) de cada uno
-        best_match = [m[0] for m in matches]
+        best_match = [m[0] for m in matches if m[0].distance < threshold.value]
+        #print(best_match[0].distance)
 
         # y las dibujamos
         imgm = cv.drawMatches(frame, keypoints, x0, k0, best_match,
@@ -60,6 +63,6 @@ for key, frame in autoStream():
         cv.imshow("SIFT",imgm)
 
 
-# habrá muchas coincidencias malas. Algunas se puede eliminar en base al grado de coincidencia,
+# Algunas coincidencias malas se puede eliminar ajustando la distancia,
 # pero en el siguiente ejemplo de código haremos algo mejor
 
