@@ -69,5 +69,3 @@ for key, frame in autoStream():
         s = cosas[p%len(cosas)][1]
         cv.imshow('cosas', s)
 
-cv.destroyAllWindows()
-

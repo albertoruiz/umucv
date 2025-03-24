@@ -151,6 +151,3 @@ for key, frame in autoStream():
 
     cv.imshow('digits',frame)
 
-cv.destroyAllWindows()
-
-

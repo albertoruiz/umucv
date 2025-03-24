@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
-# 4) Usamos la red convolucional que hemos entrenado
+# 4) Usamos la red convolucional que hemos entrenado con keras1.py
+#    también está disponible aquí:
+#    wget https://umubox.um.es/index.php/s/ge3h1OdotGtx6RQ/download -O digits.keras
 
 import cv2 as cv
 import numpy as np
@@ -15,8 +17,6 @@ os.environ["KERAS_BACKEND"] = "torch"
 
 import keras
 
-# el modelo preentrenado está aquí:
-# wget https://robot.inf.um.es/material/va/digits.keras
 model = keras.models.load_model('digits.keras')
 
 def classifyN(xs):
@@ -119,7 +119,4 @@ for key, frame in autoStream():
         frame[-28:,28*k:28*(k+1),:] = x.reshape(28,28,1)*255
 
     cv.imshow('digits',frame)
-
-cv.destroyAllWindows()
-
 
