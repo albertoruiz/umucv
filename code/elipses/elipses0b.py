@@ -10,7 +10,7 @@ from umucv.stream   import autoStream
 import cv2 as cv
 import numpy as np
 from umucv.contours import extractContours
-from umucv.util import mkParam, putText
+from umucv.util import Slider, putText
 from umucv.htrans import htrans, desp, rot3, scale
 
 # La idea es la siguiente: ajustando adecuadamente la escala, si una figura
@@ -66,23 +66,19 @@ def detectEllipses(contours, mindiam = 20, minratio = 0.2, tol = 5):
     return sorted(res, key = lambda x: - x[1][0] * x[1][1])
 
 
-
-cv.namedWindow("elipses")
-param = mkParam("elipses")
-param.addParam("err",30,50)
-param.addParam("area",5,20)
-
+error = Slider("error","elipses",30,0,50,1)
+area  = Slider("area","elipses",5,0,20,1)
 
 
 
 for key,frame in autoStream():
     g = cv.cvtColor(frame,cv.COLOR_BGR2GRAY)
 
-    cs = extractContours(g, minarea= max(1,param.area) ) 
+    cs = extractContours(g, minarea= max(1,area.value) )
 
-    els = detectEllipses(cs, tol=param.err)
+    els = detectEllipses(cs, tol=error.value)
 
-    for e in els:            
+    for e in els:
 
         # podemos dibujar directamente las elipses con opencv
         cv.ellipse(frame,e, color=(0,0,255), thickness=2, lineType=cv.LINE_AA)
