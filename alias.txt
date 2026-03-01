@@ -22,3 +22,5 @@ tv2 = https://ztnr.rtve.es/ztnr/1688885.m3u8
 #default = {tv1} --resize=640x0
 #default = {phone}
 
+# 
+# halcon = "$(yt-dlp -f 93 --get-url yv2RtoIMNzA)"
