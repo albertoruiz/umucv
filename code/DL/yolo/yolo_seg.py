@@ -19,7 +19,7 @@ for key,frame in autoStream():
             mask += np.expand_dims(m.cpu().numpy(),-1)*[[[1,1,1]]]
 
         #print(mask.shape, frame.shape)
-        cv.imshow('mask',mask)
+        cv.imshow('mask',mask.astype(np.uint8))
 
         h,w,_ = frame.shape
         mask = cv.resize(mask,(w,h))

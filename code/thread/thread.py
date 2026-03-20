@@ -9,6 +9,7 @@
 
 import cv2   as cv
 from threading import Thread
+import traceback
 from umucv.stream import autoStream
 import numpy as np
 import time
@@ -40,14 +41,27 @@ t.start()
 
 #cv.setNumThreads(8)
 
-# capture
-for key, frame in autoStream():
-    cv.imshow('input',frame)
-    print('capture')
-    if result is not None:
-        cv.imshow('work',np.hstack(result))
-        print('display')
-        result = None
+try:
+    # capture
+    for key, frame in autoStream():
+        cv.imshow('input',frame)
+        print('capture')
+        if result is not None:
+            cv.imshow('work',np.hstack(result))
+            print('display')
+            result = None
+
+except KeyboardInterrupt:
+    # Allow Ctrl-C to terminate immediately
+    goon = False
+    raise
+
+except Exception as e:
+    print("Error:", e)
+    traceback.print_exc()
+
+    goon = False      
+
 
 goon=False
 
