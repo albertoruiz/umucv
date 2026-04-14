@@ -2,7 +2,7 @@
 
 # OCR en vivo de una línea de texto marcada con un ROI
 
-# sudo apt install tesseract-ocr  tesseract-ocr-spa libtesseract-dev libleptonica-dev pkg-config 
+# sudo apt install tesseract-ocr  tesseract-ocr-spa libtesseract-dev libleptonica-dev pkg-config
 # pip install tesserocr
 
 
@@ -18,12 +18,12 @@ import tesserocr
 # para conversión al formato requerido
 from PIL import Image
 
-# para verificar nuestra instalación 
+# para verificar nuestra instalación
 print(tesserocr.tesseract_version())  # print tesseract-ocr version
 print(tesserocr.get_languages())      # prints tessdata path and list of available languages
 
 # establecemos la configuración de trabajo
-tesseract = tesserocr.PyTessBaseAPI(lang='eng', psm=tesserocr.PSM.SINGLE_LINE, oem=tesserocr.OEM.DEFAULT, path="/usr/share/tesseract-ocr/4.00/tessdata")
+tesseract = tesserocr.PyTessBaseAPI(lang='eng', psm=tesserocr.PSM.SINGLE_LINE, oem=tesserocr.OEM.DEFAULT, path="/usr/share/tesseract-ocr/5/tessdata")
 # lo importante aquí es la opción de SINGLE_LINE (y que en el ROI haya una sola línea realmente)
 # el path es válido en mi versión de ubuntu, seguramente habrá que cambiarlo para otros sistemas
 
@@ -41,12 +41,12 @@ for key, frame in autoStream():
         [x1,y1,x2,y2] = roi.roi
         # si la región es muy pequeña no hacemos nada
         if abs(y2-y1) < 10: continue
-        
+
         # extraemos la región y la marcamos
         region = frame[y1:y2,x1:x2].copy()
         cv.rectangle(frame, (x1,y1), (x2,y2), (0,0,255), 1)
         # cv.imshow('ROI', region)
-        
+
         # medimos el tiempo de proceso
         t0 = time.time()
         # binarizamos la imagen con umbral automático (opcional)
@@ -55,12 +55,12 @@ for key, frame in autoStream():
         tesseract.SetImage(Image.fromarray(region))
         ocr_result = tesseract.GetUTF8Text()
         t1 = time.time()
-        
+
         print(ocr_result)
-        
+
         # mostramos el resultado en la ventana junto con el tamaño del ROI y el tiempo de cómputo
         h,w = region.shape[:2]
         putText(frame, f'{ocr_result[:-1]}   ({w}x{h}, {1000*(t1-t0):.0f}ms)', orig=(x1+5,y1-8))
-        
+
     cv.imshow('OCR', frame)
 
