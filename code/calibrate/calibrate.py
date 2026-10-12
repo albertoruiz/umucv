@@ -28,12 +28,20 @@ for _, frame in autoStream():
 
     print('ok')
 
+
 print(len(obj_points))
-rms, camera_matrix, dist_coefs, rvecs, tvecs = cv.calibrateCamera(obj_points, img_points, (w, h), None, None)
+rms, camera_matrix, dist_coefs, rvecs, tvecs = cv.calibrateCamera(obj_points, img_points, (w, h), None, None, flags=cv.CALIB_FIX_PRINCIPAL_POINT+cv.CALIB_ZERO_TANGENT_DIST+cv.CALIB_FIX_ASPECT_RATIO)
 
 print("RMS:", rms)
 print("camera matrix:\n", np.round((camera_matrix)))
-print("distortion coefficients: ", np.round(dist_coefs.ravel(),3))
+print("distortion coefficients: ", np.round(dist_coefs.ravel(),5))
 
-np.savetxt('calib.txt', np.array([x for x in camera_matrix.flatten()]+[x for x in dist_coefs.flatten()]))
+f = (camera_matrix[0,0]+camera_matrix[1,1])/2
+print(f"f = {f:.1f}px")
+
+caldata = np.array([x for x in camera_matrix.flatten()]+[x for x in dist_coefs.flatten()])
+
+np.savetxt('calib.txt', caldata)
+
+print("--undistort="+",".join([f"{d:.5}"for d in caldata]))
 

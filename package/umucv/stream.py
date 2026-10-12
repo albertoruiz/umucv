@@ -2,6 +2,7 @@ import numpy as np
 import cv2   as cv
 from threading import Thread
 from umucv.util import Clock, putText, findParent
+from umucv.htrans import Kfov
 import datetime
 import time
 import argparse
@@ -35,10 +36,10 @@ def mkStream(sz=None, dev='0', loop=False):
             print('Empty source!')
             sys.exit(1)
             #images = [ np.random.randint(256, size=(480,640,3), dtype= np.uint8) ]
-        
+
         images = [ cv.imread(f,cv.IMREAD_COLOR) for f in files ]
         icons  = [ None for f in files ]
-        
+
         k = 0
         n = len(images)
 
@@ -106,13 +107,13 @@ def mkStream(sz=None, dev='0', loop=False):
             try:
                 cap = cv.VideoCapture(dev, cv.CAP_V4L)
                 if not cap.isOpened():
-                    cap = cv.VideoCapture(dev)    
+                    cap = cv.VideoCapture(dev)
             except:
                 cap = cv.VideoCapture(dev)
-        
+
         elif dev[:3] == 'gs:':
             cap = cv.VideoCapture(dev[3:], cv.CAP_GSTREAMER)
-        
+
         else:
             cap = cv.VideoCapture(dev)
 
@@ -154,7 +155,7 @@ def withKey(stream, t=1):
             if key == 32:
                 pausa = not pausa
                 if pausa:
-                    frozen = frame.copy()            
+                    frozen = frame.copy()
             if pausa:
                 yield key, frozen.copy()
             else:
@@ -182,6 +183,8 @@ def sourceArgs(p):
     p.add_argument('--dev', type=str, default='default', help='image source')
     p.add_argument('--size', help='desired image size', type=isize, default=None)
     p.add_argument('--resize', help='force image size', type=isize, default=None)
+    p.add_argument('--undistort', help='undistort parameters (K+D)', default=None)
+    p.add_argument('--hfov', help='undistorted horizontal field of view', type=float, default=None)
     p.add_argument('--step', help='frame by frame', action='store_true')
     p.add_argument('--loop', help='repeat video forever', action='store_true')
 
@@ -197,7 +200,7 @@ def replace_env_variables(text: str) -> str:
             print(f"Warning: Environment variable '{var_name}' not found.")
             return f"${var_name}"
         return value
-    
+
     return re.sub(r'\$(\w+)', replacer, text)
 
 # Example usage:
@@ -207,12 +210,13 @@ def replace_env_variables(text: str) -> str:
 
 
 def readAlias():
-    aliasfile = findParent('alias.txt')
-    try:
-        with open(aliasfile, 'r') as f:
-            x = f.read()
-    except:
-        return {'default':'0'}
+    aliasfiles = [findParent(name) for name in ['alias.txt', 'alias1.txt'] ]
+    x = ""
+    for ruta in aliasfiles:
+        if ruta is not None:
+            with open(ruta, 'r') as f:
+                x += f.read() + "\n"
+
     lines = [ l.strip() for l in x.split('\n')]
     lines = [ l for l in lines if len(l)>0 and l[0] != '#' ]
     D = {k.strip(): v.strip() for k,v in map(lambda l: l.split('=',1), lines) }
@@ -225,52 +229,69 @@ def readAlias():
 
 original_shape = [None]
 
-
 def mkResize(args):
 
     def noresize(x):
         original_shape[0] = x.shape
         return x
 
-    if args.resize is None:
+    if args.resize is None and args.undistort is None:
         return noresize
-    
-    wd,hd = args.resize
+
+    if args.undistort is None:
+        wd,hd = args.resize
+
+        def resize(x):
+            nonlocal wd, hd
+            original_shape[0] = x.shape
+            h, w  = x.shape[:2]
+            if h!=hd or w!=wd:
+                if hd==0:
+                    hd = int(h/w*wd)
+                if wd==0:
+                    wd = int(w/h*hd)
+                return cv.resize(x, (wd,hd))
+            else:
+                return x
+
+        return resize
+
+    calibdata = np.array([float(d) for d in args.undistort.split(',')])
+    K = calibdata[:9].reshape(3,3)
+    D = calibdata[9:]
+
+    newres = wd,hd = args.resize
+    assert wd > 0 and hd > 0
+
+    K2 = Kfov(newres, args.hfov)
+
+    map1, map2 = cv.initUndistortRectifyMap(K, D, np.eye(3), K2, newres, cv.CV_16SC2)
 
     def resize(x):
-        nonlocal wd, hd
         original_shape[0] = x.shape
-        h, w  = x.shape[:2]
-        if h!=hd or w!=wd:
-            if hd==0:
-                hd = int(h/w*wd)
-            if wd==0:
-                wd = int(w/h*hd)
-            return cv.resize(x, (wd,hd))
-        else:
-            return x
-    
+        return cv.remap(x, map1, map2, interpolation=cv.INTER_LINEAR, borderMode=cv.BORDER_CONSTANT)
+
     return resize
+
 
 
 def autoStream(transf = lambda x: x):
     parser = argparse.ArgumentParser()
     sourceArgs(parser)
     args, _ = parser.parse_known_args()
-    
+
     D = readAlias()
     #print(D)
-    
+
     dev = D.get(args.dev, args.dev)
     #print(args.dev, dev)
 
     if ' ' in dev:
-        dev, other = dev.split(' ',2)    
-        other = other.split(' ')
+        dev, *other = dev.split(' ')
         args, _ = parser.parse_known_args(other + sys.argv)
-    
+
     resize = mkResize(args)
-    
+
     stream = transf( map(resize, mkStream(args.size, dev, args.loop) ) )
     return withKey(stream, 0 if args.step else 1)
 
@@ -318,27 +339,27 @@ class Camera:
         self.time  = 0
         self.goon  = True
         self.drop  = False
-        
+
         def fun():
             while self.goon:
                 if self.drop:
                     next(self.stream)
                     if debug:
                         print('Frame dropped: {:.0f}'.format(self.clock.time()))
-                else:    
+                else:
                     self.frame = next(self.stream)
                     t = self.clock.time()
                     dt = t - self.time
                     self.time = t
                     if debug:
                         print('Frame ready: {:.0f} ({:.0f})'.format(self.time,dt))
-        
+
         t = Thread(target=fun,args=())
         t.start()
         while self.frame is None: pass
-    
+
     def stop(self):
-        self.goon = False 
+        self.goon = False
 
 
 helpstring = """
@@ -358,12 +379,14 @@ autostream options:
     --dev=url/of/stream (rstp, mjpg, etc.)
 
     --dev=snapshot:15:url   (single image from IP cams, every 15 seconds)
- 
+
     --dev=alias   (defined in alias.txt)
 
     --size=800x600     (requested to source)
 
     --resize=320x0     (forced, 0=keep ratio)
+
+    --undistort=k1..k9,d1..d5 --resize=800x400 --hfov=80
 
 GUI options
 
